@@ -19,4 +19,18 @@ abstract class ModelWidget {
   int childIdentifier;
 
   Widget toWidget();
+
+  bool addChild(ModelWidget widget) {
+    if(nodeType == NodeType.SingleChild) {
+      if(children.length == 0) {
+        children[0] = widget;
+        return true;
+      }
+    } else if(nodeType == NodeType.MultipleChildren) {
+      children[children.length] = widget;
+      return true;
+    }
+
+    return false;
+  }
 }

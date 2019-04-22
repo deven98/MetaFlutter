@@ -16,14 +16,13 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     root = ColumnModel();
-    root.children[root.children.length] = CenterModel();
+    root.addChild(CenterModel());
     root.children[0] = TextModel("Hello World");
-    root.children[root.children.length] = CenterModel();
+    root.addChild(CenterModel());
     root.children[1] = TextModel("Hello World");
-    root.children[root.children.length] = CenterModel();
+    root.addChild(CenterModel());
     root.children[2] = TextModel("Hello World");
   }
 
