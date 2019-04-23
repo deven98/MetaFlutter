@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 
+/// Denotes the type of widget
 enum WidgetType {
   Text,
   Center,
   Column
 }
 
+/// Denotes if the widget can have zero, one or multiple children
 enum NodeType {
   SingleChild,
   MultipleChildren,
   End,
 }
 
+/// Model Widget class
 abstract class ModelWidget {
   WidgetType widgetType;
   Map<int, ModelWidget> children = {};
   NodeType nodeType;
   int childIdentifier;
+  Map params = {};
 
   Widget toWidget();
 

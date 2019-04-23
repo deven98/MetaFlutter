@@ -11,34 +11,53 @@ class WidgetStructurePage extends StatefulWidget {
 }
 
 class _WidgetStructurePageState extends State<WidgetStructurePage> {
-
   ModelWidget root;
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     root = ColumnModel();
     root.addChild(CenterModel());
-    root.children[0] = TextModel("Hello World");
-    root.addChild(CenterModel());
-    root.children[1] = TextModel("Hello World");
-    root.addChild(CenterModel());
-    root.children[2] = TextModel("Hello World");
+    TextModel model = TextModel();
+    model.params[TextModelParams.text] = "Hello World";
+    root.children[0].addChild(model);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ResultScreen(
+                    root.toWidget(),
+                  ),
+            ),
+          );
+        },
+        label: Text("Done"),
+        icon: Icon(Icons.done),
+      ),
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
             title: Text("Build It!"),
           ),
+//          _buildInfo(),
+//          _buildChildren(),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(onPressed: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ResultScreen(root.toWidget())));
-      }, label: Text("Done"), icon: Icon(Icons.done),),
     );
   }
+
+  Widget _buildInfo() {
+    return SliverList(delegate: SliverChildListDelegate([
+
+    ]));
+  }
+
+  Widget _buildChildren() {}
 }

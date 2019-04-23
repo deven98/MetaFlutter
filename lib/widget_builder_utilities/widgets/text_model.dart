@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 
 import '../model_widget.dart';
 
-class TextModel extends ModelWidget {
-  String text;
+enum TextModelParams {
+  text
+}
 
-  TextModel(this.text) {
+class TextModel extends ModelWidget {
+
+  TextModel() {
     this.widgetType = WidgetType.Text;
     this.nodeType = NodeType.End;
   }
 
   @override
   Widget toWidget() {
-    return Text(text ?? "");
+    return Text(params[TextModelParams.text] ?? "");
   }
 
 }
