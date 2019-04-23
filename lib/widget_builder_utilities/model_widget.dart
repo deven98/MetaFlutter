@@ -21,6 +21,8 @@ abstract class ModelWidget {
   NodeType nodeType;
   int childIdentifier;
   Map params = {};
+  bool hasAttributes;
+  bool hasChildren;
 
   Widget toWidget();
 
@@ -37,4 +39,6 @@ abstract class ModelWidget {
 
     return false;
   }
+
+  Map getParamValuesMap();
 }
