@@ -12,12 +12,29 @@ enum NodeType {
 
 /// Model Widget class
 abstract class ModelWidget {
+  
+  /// Type of widget ([Text], [Center], [Column], etc)
   WidgetType widgetType;
+  
+  /// Children of the widget
   Map<int, ModelWidget> children = {};
+  
+  /// How the widget fits into the tree
+  /// [NodeType.End] is used for widgets that cannot have children
+  /// [NodeType.SingleChild] and [NodeType.MultipleChildren] are self-explanatory
   NodeType nodeType;
-  int childIdentifier;
+
+  /// Stores the names of all parameters and input types
+  Map paramNameAndTypes = {};
+  
+  /// The parameter values of the widget
+  /// Key is the parameter name and value is the value
   Map params = {};
-  bool hasAttributes;
+  
+  /// Denotes if the widget has any properties
+  bool hasProperties;
+  
+  /// Denotes if the widget has any children
   bool hasChildren;
 
   /// This method takes the parameters and returns the actual widget to display

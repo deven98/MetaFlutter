@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/models/widget_structure_model.dart';
 import 'package:flutter_app_builder/pages/result_screen.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/property.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/center_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/column_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_model.dart';
@@ -95,11 +96,11 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: root.hasAttributes ? Text("Attributes:") : Container(),
+        child: root.hasProperties ? Text("Attributes:") : Container(),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: root.hasAttributes ? _getAttributes(root) : Container(),
+        child: root.hasProperties ? _getAttributes(root) : Container(),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
@@ -143,9 +144,9 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
     Map map = widget.getParamValuesMap();
     return Column(
       children: map.entries.map((entry) {
-        return Text(
-          entry.key.toString() + ": " + entry.value.toString(),
-        );
+        return Property(widget.paramNameAndTypes[entry.key], (value) {
+          widget.params[entry.key] = value;
+        }, currentValue: map[entry.key]);
       }).toList(),
     );
   }

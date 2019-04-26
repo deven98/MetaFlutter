@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 
 import '../model_widget.dart';
-
-enum IconModelParams {
-  icon,
-}
+import '../property.dart';
 
 class IconModel extends ModelWidget {
 
   IconModel() {
     this.widgetType = WidgetType.Icon;
     this.nodeType = NodeType.End;
-    this.hasAttributes = true;
+    this.hasProperties = true;
     this.hasChildren = false;
+    this.paramNameAndTypes = {
+      "icon": PropertyType.icon,
+    };
   }
 
   @override
   Widget toWidget() {
-    return Icon(params[IconModelParams.icon] ?? Icons.help_outline);
+    return Icon(params["icon"] ?? Icons.help_outline);
   }
 
   @override
   Map getParamValuesMap() {
     return {
-      "icon": params[IconModelParams.icon],
+      "icon": params["icon"],
     };
   }
 }

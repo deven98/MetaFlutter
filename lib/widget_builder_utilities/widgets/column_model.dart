@@ -2,17 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../model_widget.dart';
 
-enum ColumnModelValues {
-  mainAxisAlignment,
-  crossAxisAlignment
-}
-
 class ColumnModel extends ModelWidget {
-
   ColumnModel() {
     this.widgetType = WidgetType.Column;
     this.nodeType = NodeType.MultipleChildren;
-    this.hasAttributes = true;
+    this.hasProperties = true;
     this.hasChildren = true;
   }
 
@@ -30,8 +24,8 @@ class ColumnModel extends ModelWidget {
   @override
   Map getParamValuesMap() {
     return {
-      //TODO: Column params
-      "mainAxisAlignment": "Demo Value",
+      "mainAxisAlignment": params["mainAxisAlignment"],
+      "crossAxisAlignment": params["crossAxisAlignment"],
     };
   }
 }
