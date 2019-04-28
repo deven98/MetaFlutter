@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_builder/models/widget_structure_model.dart';
 import 'package:flutter_app_builder/pages/result_screen.dart';
 import 'package:flutter_app_builder/pages/select_widget_dialog.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
@@ -7,16 +6,16 @@ import 'package:flutter_app_builder/widget_builder_utilities/property.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/center_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/column_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_model.dart';
-import 'package:scoped_model/scoped_model.dart';
 
 class WidgetStructurePage extends StatefulWidget {
-  /// The top-most node for this particular page
+  /// The top-most node for the page
   final ModelWidget root;
 
-  /// Denotes if the node in consideration is the root node of the entire widget model tree
-  final bool isTopNode;
+  final ModelWidget currentNode;
 
-  WidgetStructurePage(this.root, this.isTopNode);
+  /// Denotes if the node in consideration is the root node of the entire widget model tree
+
+  WidgetStructurePage(this.root, this.currentNode);
 
   @override
   _WidgetStructurePageState createState() => _WidgetStructurePageState();
@@ -24,46 +23,43 @@ class WidgetStructurePage extends StatefulWidget {
 
 class _WidgetStructurePageState extends State<WidgetStructurePage> {
   ModelWidget root;
+  ModelWidget currNode;
 
   @override
   void initState() {
     super.initState();
     root = widget.root;
+    currNode = widget.currentNode;
   }
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<WidgetStructureModel>(
-      builder:
-          (BuildContext context, Widget child, WidgetStructureModel model) {
-        return Scaffold(
-          floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ResultScreen(
-                        root.toWidget(),
-                      ),
+    return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ResultScreen(
+                    root.toWidget(),
+                  ),
+            ),
+          );
+        },
+        label: Text("Done"),
+        icon: Icon(Icons.done),
+      ),
+      body: currNode == null
+          ? _buildAddWidgetPage()
+          : CustomScrollView(
+              slivers: <Widget>[
+                SliverAppBar(
+                  title: Text("Build It!"),
                 ),
-              );
-            },
-            label: Text("Done"),
-            icon: Icon(Icons.done),
-          ),
-          body: root == null
-              ? _buildAddWidgetPage()
-              : CustomScrollView(
-                  slivers: <Widget>[
-                    SliverAppBar(
-                      title: Text("Build It!"),
-                    ),
-                    _buildInfo(),
-                    root.hasChildren ? _buildChildren() : SliverFillRemaining(),
-                  ],
-                ),
-        );
-      },
+                _buildInfo(),
+                currNode.hasChildren ? _buildChildren() : SliverFillRemaining(),
+              ],
+            ),
     );
   }
 
@@ -80,14 +76,19 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
             icon: Icon(Icons.add_circle_outline),
             color: Colors.black45,
             onPressed: () async {
-              ModelWidget widget = await Navigator.of(context)
+              ModelWidget newWidget = await Navigator.of(context)
                   .push(new MaterialPageRoute<ModelWidget>(
                       builder: (BuildContext context) {
                         return new SelectWidgetDialog();
                       },
                       fullscreenDialog: true));
               setState(() {
-                root = widget;
+                if (widget.root == null) {
+                  root = newWidget;
+                  currNode = root;
+                } else {
+                  currNode.addChild(newWidget);
+                }
               });
             },
             iconSize: 60.0,
@@ -102,23 +103,23 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
         delegate: SliverChildListDelegate([
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text("Widget: " + root.widgetType.toString().split(".")[1]),
+        child: Text("Widget: " + currNode.widgetType.toString().split(".")[1]),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: root.hasProperties ? Text("Attributes:") : Container(),
+        child: currNode.hasProperties ? Text("Attributes:") : Container(),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: root.hasProperties ? _getAttributes(root) : Container(),
+        child: currNode.hasProperties ? _getAttributes(currNode) : Container(),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: root.hasChildren ? Text("Children:") : Container(),
+        child: currNode.hasChildren ? Text("Children:") : Container(),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: root.hasChildren
+        child: currNode.hasChildren
             ? IconButton(
                 icon: Icon(Icons.add_circle_outline),
                 color: Colors.black45,
@@ -130,7 +131,7 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
                           },
                           fullscreenDialog: true));
                   setState(() {
-                    root.addChild(widget);
+                    currNode.addChild(widget);
                   });
                 },
                 iconSize: 60.0,
@@ -150,24 +151,41 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          WidgetStructurePage(root.children[position], false)));
+                      builder: (context) => WidgetStructurePage(
+                          widget.root, currNode.children[position])));
             },
             child: Column(
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(root.children[position].widgetType.toString()),
+                  child:
+                      Text(currNode.children[position].widgetType.toString()),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: _getAttributes(root.children[position]),
+                  child: _getAttributes(currNode.children[position]),
                 ),
+                FlatButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => WidgetStructurePage(
+                                  root,
+                                  currNode.children[position],
+                                )));
+                  },
+                  child: Text(
+                    "Expand",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  color: Colors.blue,
+                )
               ],
             ),
           ),
         );
-      }, childCount: root.children.length),
+      }, childCount: currNode.children.length),
     );
   }
 
@@ -177,13 +195,20 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
       children: map.entries.map((entry) {
         return Row(
           children: <Widget>[
-            Expanded(child: Text(entry.key)),
             Expanded(
-              child: Property(widget.paramNameAndTypes[entry.key], (value) {
-                setState(() {
-                  widget.params[entry.key] = value;
-                });
-              }, currentValue: map[entry.key]),
+              child: Text(entry.key),
+              flex: 3,
+            ),
+            Expanded(
+              flex: 5,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0),
+                child: Property(widget.paramNameAndTypes[entry.key], (value) {
+                  setState(() {
+                    widget.params[entry.key] = value;
+                  });
+                }, currentValue: map[entry.key]),
+              ),
             ),
           ],
         );

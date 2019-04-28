@@ -4,11 +4,10 @@ import '../model_widget.dart';
 import '../property.dart';
 
 class CenterModel extends ModelWidget {
-
   CenterModel() {
     this.widgetType = WidgetType.Center;
     this.nodeType = NodeType.SingleChild;
-    this.hasProperties = false;
+    this.hasProperties = true;
     this.hasChildren = true;
     this.paramNameAndTypes = {
       "widthFactor": PropertyType.double,
@@ -18,7 +17,11 @@ class CenterModel extends ModelWidget {
 
   @override
   Widget toWidget() {
-    return Center(child: children[0].toWidget(),);
+    return Center(
+      child: children[0].toWidget(),
+      widthFactor:double.tryParse(params["widthFactor"].toString()) ?? null,
+      heightFactor: double.tryParse(params["heightFactor"].toString()) ?? null,
+    );
   }
 
   @override
@@ -28,5 +31,4 @@ class CenterModel extends ModelWidget {
       "heightFactor": params["heightFactor"],
     };
   }
-
 }
