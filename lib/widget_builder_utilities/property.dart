@@ -4,7 +4,9 @@ enum PropertyType {
   icon,
   double,
   integer,
-  string
+  string,
+  mainAxisAlignment,
+  crossAxisAlignment,
 }
 
 class Property extends StatefulWidget {
@@ -27,6 +29,7 @@ class _PropertyState extends State<Property> {
           /*return DropdownButton(items: , onChanged: (value) {
             widget.onValueChanged(value);
           });*/
+          throw Exception("Icon not implemented yet");
         break;
       case PropertyType.double:
         return TextField(
@@ -60,6 +63,24 @@ class _PropertyState extends State<Property> {
           onChanged: widget.onValueChanged,
         );
         break;
+      case PropertyType.mainAxisAlignment:
+        return DropdownButton(items: MainAxisAlignment.values.map((value) {
+          return DropdownMenuItem(
+            child: Text(value.toString().split(".")[1]),
+            value: value,
+          );
+        },).toList(), onChanged: widget.onValueChanged, value: widget.currentValue, isExpanded: true,);
+        break;
+      case PropertyType.crossAxisAlignment:
+        return DropdownButton(items: CrossAxisAlignment.values.map((value) {
+          return DropdownMenuItem(
+            child: Text(value.toString().split(".")[1]),
+            value: value,
+          );
+        },).toList(), onChanged: widget.onValueChanged, value: widget.currentValue, isExpanded: true,);
+        break;
+      default:
+        return null;
     }
   }
 }

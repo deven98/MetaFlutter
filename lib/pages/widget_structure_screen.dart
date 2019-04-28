@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/models/widget_structure_model.dart';
 import 'package:flutter_app_builder/pages/result_screen.dart';
+import 'package:flutter_app_builder/pages/select_widget_dialog.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/property.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/center_model.dart';
@@ -79,7 +80,17 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
           IconButton(
             icon: Icon(Icons.add_circle_outline),
             color: Colors.black45,
-            onPressed: () {},
+            onPressed: () async {
+              ModelWidget widget = await Navigator.of(context).push(new MaterialPageRoute<ModelWidget>(
+                  builder: (BuildContext context) {
+                    return new SelectWidgetDialog();
+                  },
+                  fullscreenDialog: true
+              ));
+              setState(() {
+                root = widget;
+              });
+            },
             iconSize: 60.0,
           ),
         ],
@@ -144,9 +155,18 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
     Map map = widget.getParamValuesMap();
     return Column(
       children: map.entries.map((entry) {
-        return Property(widget.paramNameAndTypes[entry.key], (value) {
-          widget.params[entry.key] = value;
-        }, currentValue: map[entry.key]);
+        return Row(
+          children: <Widget>[
+            Expanded(child: Text(entry.key)),
+            Expanded(
+              child: Property(widget.paramNameAndTypes[entry.key], (value) {
+                setState(() {
+                  widget.params[entry.key] = value;
+                });
+              }, currentValue: map[entry.key]),
+            ),
+          ],
+        );
       }).toList(),
     );
   }

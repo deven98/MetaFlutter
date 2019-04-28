@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../model_widget.dart';
+import '../property.dart';
 
 class ColumnModel extends ModelWidget {
   ColumnModel() {
@@ -8,6 +9,10 @@ class ColumnModel extends ModelWidget {
     this.nodeType = NodeType.MultipleChildren;
     this.hasProperties = true;
     this.hasChildren = true;
+    this.paramNameAndTypes = {
+      "mainAxisAlignment": PropertyType.mainAxisAlignment,
+      "crossAxisAlignment": PropertyType.crossAxisAlignment
+    };
   }
 
   @override
