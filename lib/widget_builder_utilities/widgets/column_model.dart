@@ -18,6 +18,8 @@ class ColumnModel extends ModelWidget {
   @override
   Widget toWidget() {
     return Column(
+      mainAxisAlignment: params["mainAxisAlignment"],
+      crossAxisAlignment: params["crossAxisAlignment"],
       children: children.isNotEmpty
           ? children.values.map((widget) {
               return widget.toWidget();

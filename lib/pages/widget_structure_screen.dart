@@ -10,7 +10,6 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_model.
 import 'package:scoped_model/scoped_model.dart';
 
 class WidgetStructurePage extends StatefulWidget {
-
   /// The top-most node for this particular page
   final ModelWidget root;
 
@@ -81,12 +80,12 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
             icon: Icon(Icons.add_circle_outline),
             color: Colors.black45,
             onPressed: () async {
-              ModelWidget widget = await Navigator.of(context).push(new MaterialPageRoute<ModelWidget>(
-                  builder: (BuildContext context) {
-                    return new SelectWidgetDialog();
-                  },
-                  fullscreenDialog: true
-              ));
+              ModelWidget widget = await Navigator.of(context)
+                  .push(new MaterialPageRoute<ModelWidget>(
+                      builder: (BuildContext context) {
+                        return new SelectWidgetDialog();
+                      },
+                      fullscreenDialog: true));
               setState(() {
                 root = widget;
               });
@@ -116,6 +115,27 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: root.hasChildren ? Text("Children:") : Container(),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: root.hasChildren
+            ? IconButton(
+                icon: Icon(Icons.add_circle_outline),
+                color: Colors.black45,
+                onPressed: () async {
+                  ModelWidget widget = await Navigator.of(context)
+                      .push(new MaterialPageRoute<ModelWidget>(
+                          builder: (BuildContext context) {
+                            return new SelectWidgetDialog();
+                          },
+                          fullscreenDialog: true));
+                  setState(() {
+                    root.addChild(widget);
+                  });
+                },
+                iconSize: 60.0,
+              )
+            : Container(),
       ),
     ]));
   }

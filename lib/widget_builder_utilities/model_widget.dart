@@ -14,6 +14,7 @@ enum NodeType {
   End,
 }
 
+/// Creates a new model for each [WidgetType]
 ModelWidget getNewModelFromType (WidgetType type) {
   switch(type) {
     case WidgetType.Text:
