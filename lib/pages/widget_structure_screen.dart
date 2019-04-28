@@ -46,7 +46,7 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
             ),
           );
         },
-        label: Text("Done"),
+        label: Text("Build Layout"),
         icon: Icon(Icons.done),
       ),
       body: currNode == null
