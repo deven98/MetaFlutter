@@ -99,7 +99,7 @@ class _PropertyState extends State<Property> {
             ModelWidget newWidget = await Navigator.of(context)
                 .push(new MaterialPageRoute<ModelWidget>(
                 builder: (BuildContext context) {
-                  return new AddPropertyWidgetDialog();
+                  return new AddPropertyWidgetDialog(widget: getNewModelFromType(widget.widgetType),);
                 },
                 fullscreenDialog: true));
             widget.onValueChanged(newWidget);
