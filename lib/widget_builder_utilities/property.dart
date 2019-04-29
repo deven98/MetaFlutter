@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/pages/add_property_widget_dialog.dart';
 
 import 'model_widget.dart';
+import 'icons_helper.dart';
 
 enum PropertyType {
   icon,
@@ -31,10 +32,19 @@ class _PropertyState extends State<Property> {
   Widget build(BuildContext context) {
     switch (widget.type) {
       case PropertyType.icon:
-        /*return DropdownButton(items: , onChanged: (value) {
+        return DropdownButton(
+          items: icons.map((data) {
+            return DropdownMenuItem(
+              child: Text(data.name),
+              value: data.iconData,
+            );
+          }).toList(),
+          onChanged: (value) {
             widget.onValueChanged(value);
-          });*/
-        throw Exception("Icon not implemented yet");
+          },
+          value: widget.currentValue,
+          isExpanded: true,
+        );
         break;
       case PropertyType.double:
         return TextField(
@@ -98,10 +108,12 @@ class _PropertyState extends State<Property> {
           onPressed: () async {
             ModelWidget newWidget = await Navigator.of(context)
                 .push(new MaterialPageRoute<ModelWidget>(
-                builder: (BuildContext context) {
-                  return new AddPropertyWidgetDialog(widget: getNewModelFromType(widget.widgetType),);
-                },
-                fullscreenDialog: true));
+                    builder: (BuildContext context) {
+                      return new AddPropertyWidgetDialog(
+                        widget: getNewModelFromType(widget.widgetType),
+                      );
+                    },
+                    fullscreenDialog: true));
             widget.onValueChanged(newWidget);
           },
           child: Text("Edit property"),
