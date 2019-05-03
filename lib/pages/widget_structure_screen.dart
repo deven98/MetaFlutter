@@ -11,9 +11,8 @@ class WidgetStructurePage extends StatefulWidget {
   /// The top-most node for the page
   final ModelWidget root;
 
+  /// The current node in consideration
   final ModelWidget currentNode;
-
-  /// Denotes if the node in consideration is the root node of the entire widget model tree
 
   WidgetStructurePage(this.root, this.currentNode);
 
@@ -58,8 +57,14 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
                 ),
                 _buildInfo(),
                 currNode.hasChildren ? _buildChildren() : SliverFillRemaining(),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 80.0,
+                  ),
+                ),
               ],
             ),
+      resizeToAvoidBottomInset: true,
     );
   }
 
@@ -68,10 +73,14 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text("No widget added yet"),
+          Text(
+            "No widget added yet",
+            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+          ),
           SizedBox(
             height: 20.0,
           ),
+          Text("Click here to add one"),
           IconButton(
             icon: Icon(Icons.add_circle_outline),
             color: Colors.black45,
@@ -103,17 +112,18 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
         delegate: SliverChildListDelegate([
       ExpansionTile(
         initiallyExpanded: currNode.hasChildren ? false : true,
-        title: Text("Widget: " + currNode.widgetType.toString().split(".")[1]),
+        title: Text(currNode.widgetType.toString().split(".")[1]),
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: currNode.hasProperties
-                ? Text(
-                    "Attributes",
-                    style: TextStyle(fontSize: 16.0),
-                  )
-                : Container(),
-          ),
+          if (currNode.hasProperties)
+            Container()
+          else
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                "No properties for this widget",
+                style: TextStyle(fontSize: 16.0),
+              ),
+            ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child:
@@ -121,37 +131,23 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
           ),
         ],
       ),
-      Divider(),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: currNode.hasChildren
-            ? Text(
-                "Children",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16.0),
-              )
-            : Container(),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: currNode.hasChildren
-            ? IconButton(
-                icon: Icon(Icons.add_circle_outline),
-                color: Colors.black45,
-                onPressed: () async {
-                  ModelWidget widget = await Navigator.of(context)
-                      .push(new MaterialPageRoute<ModelWidget>(
-                          builder: (BuildContext context) {
-                            return new SelectWidgetDialog();
-                          },
-                          fullscreenDialog: true));
-                  setState(() {
-                    currNode.addChild(widget);
-                  });
-                },
-                iconSize: 60.0,
-              )
-            : Container(),
+      ListTile(
+        title: Text(
+          "Children",
+          textAlign: TextAlign.center,
+        ),
+        trailing: Icon(Icons.add),
+        onTap: () async {
+          ModelWidget widget = await Navigator.of(context)
+              .push(new MaterialPageRoute<ModelWidget>(
+                  builder: (BuildContext context) {
+                    return new SelectWidgetDialog();
+                  },
+                  fullscreenDialog: true));
+          setState(() {
+            if (widget != null) currNode.addChild(widget);
+          });
+        },
       ),
     ]));
   }
@@ -175,11 +171,6 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
                   },
                   child: Column(
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                            currNode.children[position].widgetType.toString()),
-                      ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: _getAttributes(currNode.children[position]),
@@ -228,7 +219,8 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
             Expanded(
               flex: 5,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
                 child: Property(widget.paramNameAndTypes[entry.key], (value) {
                   setState(() {
                     widget.params[entry.key] = value;
