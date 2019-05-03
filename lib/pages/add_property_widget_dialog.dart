@@ -4,6 +4,7 @@ import 'package:flutter_app_builder/pages/widget_structure_screen.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/property.dart';
 
+/// This page is opened when a widget is to be added a property of another widget and not a child
 class AddPropertyWidgetDialog extends StatefulWidget {
   final ModelWidget widget;
 
@@ -29,9 +30,13 @@ class _AddPropertyWidgetDialogState extends State<AddPropertyWidgetDialog> {
       appBar: AppBar(
         title: Text("Add widget as property"),
       ),
-      floatingActionButton: FloatingActionButton.extended(onPressed: (){
-        Navigator.pop(context, currNode);
-      }, label: Text("Add"), icon: Icon(Icons.done),),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.pop(context, currNode);
+        },
+        label: Text("Add"),
+        icon: Icon(Icons.done),
+      ),
       body: currNode == null
           ? _buildAddWidgetPage()
           : CustomScrollView(
@@ -64,7 +69,7 @@ class _AddPropertyWidgetDialogState extends State<AddPropertyWidgetDialog> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child:
-                  Text(currNode.children[position].widgetType.toString()),
+                      Text(currNode.children[position].widgetType.toString()),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -76,9 +81,9 @@ class _AddPropertyWidgetDialogState extends State<AddPropertyWidgetDialog> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => WidgetStructurePage(
-                              currNode,
-                              currNode.children[position],
-                            )));
+                                  currNode,
+                                  currNode.children[position],
+                                )));
                   },
                   child: Text(
                     "Expand",
@@ -127,44 +132,44 @@ class _AddPropertyWidgetDialogState extends State<AddPropertyWidgetDialog> {
   Widget _buildInfo() {
     return SliverList(
         delegate: SliverChildListDelegate([
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text("Widget: " + currNode.widgetType.toString().split(".")[1]),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: currNode.hasProperties ? Text("Attributes:") : Container(),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: currNode.hasProperties ? _getAttributes(currNode) : Container(),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: currNode.hasChildren ? Text("Children:") : Container(),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: currNode.hasChildren
-                ? IconButton(
-              icon: Icon(Icons.add_circle_outline),
-              color: Colors.black45,
-              onPressed: () async {
-                ModelWidget widget = await Navigator.of(context)
-                    .push(new MaterialPageRoute<ModelWidget>(
-                    builder: (BuildContext context) {
-                      return new SelectWidgetDialog();
-                    },
-                    fullscreenDialog: true));
-                setState(() {
-                  currNode.addChild(widget);
-                });
-              },
-              iconSize: 60.0,
-            )
-                : Container(),
-          ),
-        ]));
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text("Widget: " + currNode.widgetType.toString().split(".")[1]),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: currNode.hasProperties ? Text("Attributes:") : Container(),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: currNode.hasProperties ? _getAttributes(currNode) : Container(),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: currNode.hasChildren ? Text("Children:") : Container(),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: currNode.hasChildren
+            ? IconButton(
+                icon: Icon(Icons.add_circle_outline),
+                color: Colors.black45,
+                onPressed: () async {
+                  ModelWidget widget = await Navigator.of(context)
+                      .push(new MaterialPageRoute<ModelWidget>(
+                          builder: (BuildContext context) {
+                            return new SelectWidgetDialog();
+                          },
+                          fullscreenDialog: true));
+                  setState(() {
+                    currNode.addChild(widget);
+                  });
+                },
+                iconSize: 60.0,
+              )
+            : Container(),
+      ),
+    ]));
   }
 
   Widget _getAttributes(ModelWidget widget) {

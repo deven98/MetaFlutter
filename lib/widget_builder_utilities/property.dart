@@ -4,6 +4,7 @@ import 'package:flutter_app_builder/pages/add_property_widget_dialog.dart';
 import 'model_widget.dart';
 import 'icons_helper.dart';
 
+/// Types of properties of a widget
 enum PropertyType {
   icon,
   double,
@@ -14,6 +15,8 @@ enum PropertyType {
   widget,
 }
 
+/// The property widget displays an input widget for a certain type of property
+/// For the [PropertyType.widget], it displays a button which allows the user to create a separate widget
 class Property extends StatefulWidget {
   final PropertyType type;
   final ValueChanged onValueChanged;

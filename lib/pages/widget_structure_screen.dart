@@ -101,21 +101,36 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
   Widget _buildInfo() {
     return SliverList(
         delegate: SliverChildListDelegate([
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text("Widget: " + currNode.widgetType.toString().split(".")[1]),
+      ExpansionTile(
+        initiallyExpanded: currNode.hasChildren ? false : true,
+        title: Text("Widget: " + currNode.widgetType.toString().split(".")[1]),
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: currNode.hasProperties
+                ? Text(
+                    "Attributes",
+                    style: TextStyle(fontSize: 16.0),
+                  )
+                : Container(),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child:
+                currNode.hasProperties ? _getAttributes(currNode) : Container(),
+          ),
+        ],
       ),
+      Divider(),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: currNode.hasProperties ? Text("Attributes:") : Container(),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: currNode.hasProperties ? _getAttributes(currNode) : Container(),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: currNode.hasChildren ? Text("Children:") : Container(),
+        child: currNode.hasChildren
+            ? Text(
+                "Children",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16.0),
+              )
+            : Container(),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
@@ -144,43 +159,50 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
   Widget _buildChildren() {
     return SliverList(
       delegate: SliverChildBuilderDelegate((context, position) {
-        return Card(
-          margin: EdgeInsets.all(8.0),
-          child: InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => WidgetStructurePage(
-                          widget.root, currNode.children[position])));
-            },
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child:
-                      Text(currNode.children[position].widgetType.toString()),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: _getAttributes(currNode.children[position]),
-                ),
-                FlatButton(
-                  onPressed: () {
+        return Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Card(
+            child: ExpansionTile(
+              title: Text(currNode.children[position].widgetType.toString()),
+              children: [
+                InkWell(
+                  onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => WidgetStructurePage(
-                                  root,
-                                  currNode.children[position],
-                                )));
+                                widget.root, currNode.children[position])));
                   },
-                  child: Text(
-                    "Expand",
-                    style: TextStyle(color: Colors.white),
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                            currNode.children[position].widgetType.toString()),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: _getAttributes(currNode.children[position]),
+                      ),
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => WidgetStructurePage(
+                                        root,
+                                        currNode.children[position],
+                                      )));
+                        },
+                        child: Text(
+                          "Expand",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        color: Colors.blue,
+                      )
+                    ],
                   ),
-                  color: Colors.blue,
-                )
+                ),
               ],
             ),
           ),
@@ -196,7 +218,11 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
         return Row(
           children: <Widget>[
             Expanded(
-              child: Text(entry.key),
+              child: Text(
+                entry.key,
+                style: TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
               flex: 3,
             ),
             Expanded(
