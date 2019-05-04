@@ -43,6 +43,9 @@ abstract class ModelWidget {
   
   /// Children of the widget
   Map<int, ModelWidget> children = {};
+
+  /// The parent of the current widget
+  ModelWidget parent;
   
   /// How the widget fits into the tree
   /// [NodeType.End] is used for widgets that cannot have children

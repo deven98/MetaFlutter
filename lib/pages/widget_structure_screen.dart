@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/pages/result_screen.dart';
 import 'package:flutter_app_builder/pages/select_widget_dialog.dart';
+import 'package:flutter_app_builder/pages/tree_screen.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/property.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/center_model.dart';
@@ -54,6 +55,16 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
               slivers: <Widget>[
                 SliverAppBar(
                   title: Text("Build It!"),
+                  floating: true,
+                  actions: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.device_hub),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => TreeScreen(rootWidget: root,)));
+                      },
+                      padding: EdgeInsets.all(8.0),
+                    )
+                  ],
                 ),
                 _buildInfo(),
                 currNode.hasChildren ? _buildChildren() : SliverFillRemaining(),
