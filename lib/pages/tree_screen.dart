@@ -19,6 +19,7 @@ class _TreeScreenState extends State<TreeScreen> {
     super.initState();
     widgets = List.generate(100, (v) => null);
     widgets[0] = [widget.rootWidget];
+    widgets[1] = widget.rootWidget.children.values.toList();
   }
 
   @override

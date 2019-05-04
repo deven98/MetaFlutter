@@ -13,6 +13,10 @@ class ColumnModel extends ModelWidget {
       "mainAxisAlignment": PropertyType.mainAxisAlignment,
       "crossAxisAlignment": PropertyType.crossAxisAlignment
     };
+    this.params = {
+    "mainAxisAlignment": MainAxisAlignment.start,
+    "crossAxisAlignment": CrossAxisAlignment.start,
+    };
   }
 
   @override
