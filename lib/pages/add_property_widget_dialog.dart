@@ -61,8 +61,7 @@ class _AddPropertyWidgetDialogState extends State<AddPropertyWidgetDialog> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => WidgetStructurePage(
-                          currNode, currNode.children[position])));
+                      builder: (context) => WidgetStructurePage()));
             },
             child: Column(
               children: <Widget>[
@@ -80,10 +79,7 @@ class _AddPropertyWidgetDialogState extends State<AddPropertyWidgetDialog> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => WidgetStructurePage(
-                                  currNode,
-                                  currNode.children[position],
-                                )));
+                            builder: (context) => WidgetStructurePage()));
                   },
                   child: Text(
                     "Expand",

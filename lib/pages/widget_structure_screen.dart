@@ -9,13 +9,7 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/column_mode
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_model.dart';
 
 class WidgetStructurePage extends StatefulWidget {
-  /// The top-most node for the page
-  final ModelWidget root;
-
-  /// The current node in consideration
-  final ModelWidget currentNode;
-
-  WidgetStructurePage(this.root, this.currentNode);
+  WidgetStructurePage();
 
   @override
   _WidgetStructurePageState createState() => _WidgetStructurePageState();
@@ -25,16 +19,12 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
   ModelWidget root;
   ModelWidget currNode;
 
-  @override
-  void initState() {
-    super.initState();
-    root = widget.root;
-    currNode = widget.currentNode;
-  }
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.push(
@@ -58,9 +48,27 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
                   floating: true,
                   actions: <Widget>[
                     IconButton(
+                      icon: Icon(Icons.arrow_upward),
+                      onPressed: () {
+                        setState(() {
+                          if (currNode.parent != null) {
+                            currNode = currNode.parent;
+                          } else {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Already at the top-most widget!")));
+                          }
+                        });
+                      },
+                      padding: EdgeInsets.all(8.0),
+                    ),
+                    IconButton(
                       icon: Icon(Icons.device_hub),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => TreeScreen(rootWidget: root,)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TreeScreen(
+                                      rootWidget: root,
+                                    )));
                       },
                       padding: EdgeInsets.all(8.0),
                     )
@@ -103,7 +111,7 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
                       },
                       fullscreenDialog: true));
               setState(() {
-                if (widget.root == null) {
+                if (root == null) {
                   root = newWidget;
                   currNode = root;
                 } else {
@@ -156,7 +164,10 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
                   },
                   fullscreenDialog: true));
           setState(() {
-            if (widget != null) currNode.addChild(widget);
+            if (widget != null) {
+              widget.parent = currNode;
+              currNode.addChild(widget);
+            }
           });
         },
       ),
@@ -177,8 +188,7 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => WidgetStructurePage(
-                                widget.root, currNode.children[position])));
+                            builder: (context) => WidgetStructurePage()));
                   },
                   child: Column(
                     children: <Widget>[
@@ -188,14 +198,11 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
                       ),
                       FlatButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => WidgetStructurePage(
-                                        root,
-                                        currNode.children[position],
-                                      )));
-                        },
+                          setState(() {
+                            currNode = currNode.children[position];
+
+                          });
+                          },
                         child: Text(
                           "Expand",
                           style: TextStyle(color: Colors.white),
