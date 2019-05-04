@@ -12,14 +12,16 @@ class TreeScreen extends StatefulWidget {
 
 class _TreeScreenState extends State<TreeScreen> {
   List<List<ModelWidget>> widgets = [];
+  List<int> selectedIndex = [];
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     widgets = List.generate(100, (v) => null);
     widgets[0] = [widget.rootWidget];
     widgets[1] = widget.rootWidget.children.values.toList();
+    selectedIndex = List.generate(100, (v) => -1);
+    selectedIndex[0] = 0;
   }
 
   @override
@@ -33,31 +35,52 @@ class _TreeScreenState extends State<TreeScreen> {
   }
 
   Widget _buildBody() {
-    return ListView.builder(
+    return ListView.separated(
+      separatorBuilder: (context, position) {
+        return widgets[position] != null
+            ? Container(
+                color: Colors.black54,
+                width: 0.5,
+              )
+            : Container(
+                color: Colors.transparent,
+                width: 0.5,
+              );
+      },
       scrollDirection: Axis.horizontal,
       itemCount: widgets.length,
       itemBuilder: (context, position) {
-        if(widgets[position] == null) {
+        if (widgets[position] == null) {
           return Container();
         }
         return Container(
           width: 120.0,
           child: ListView(
             children: widgets[position].map((widget) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: InkWell(
-                  child: Chip(
-                    label: Text(widget.widgetType.toString().split(".")[1]),
+              return Row(
+                children: <Widget>[
+                  Expanded(
+                      child: Divider(
+                    color: Colors.black54,
+                  )),
+                  InkWell(
+                    child: Chip(
+                      label: Text(widget.widgetType.toString().split(".")[1]),
+                    ),
+                    onTap: () {
+                      widgets[position + 1] = null;
+                      widgets.replaceRange(position + 1, widgets.length, List.generate(widgets.length - position + 1, (v) => null));
+                      selectedIndex[position] = widgets[position].indexOf(widget);
+                      setState(() {
+                        widgets[position + 1] = widget.children.values.toList();
+                      });
+                    },
                   ),
-                  onTap: () {
-                    widgets[position + 1] = null;
-
-                    setState(() {
-                      widgets[position + 1] = widget.children.values.toList();
-                    });
-                  },
-                ),
+                  Expanded(
+                      child: Divider(
+                    color: selectedIndex[position] == widgets[position].indexOf(widget) ? Colors.black : Colors.transparent,
+                  )),
+                ],
               );
             }).toList(),
           ),
