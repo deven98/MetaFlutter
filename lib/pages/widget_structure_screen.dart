@@ -4,9 +4,6 @@ import 'package:flutter_app_builder/pages/select_widget_dialog.dart';
 import 'package:flutter_app_builder/pages/tree_screen.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/property.dart';
-import 'package:flutter_app_builder/widget_builder_utilities/widgets/center_model.dart';
-import 'package:flutter_app_builder/widget_builder_utilities/widgets/column_model.dart';
-import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_model.dart';
 
 class WidgetStructurePage extends StatefulWidget {
   WidgetStructurePage();
@@ -36,7 +33,7 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
             ),
           );
         },
-        label: Text("Build Layout"),
+        label: Text("Build"),
         icon: Icon(Icons.done),
       ),
       body: currNode == null
@@ -47,19 +44,23 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
                   title: Text("Build It!"),
                   floating: true,
                   actions: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.arrow_upward),
-                      onPressed: () {
-                        setState(() {
-                          if (currNode.parent != null) {
-                            currNode = currNode.parent;
-                          } else {
-                            _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Already at the top-most widget!")));
-                          }
-                        });
-                      },
-                      padding: EdgeInsets.all(8.0),
-                    ),
+                    currNode != root
+                        ? IconButton(
+                            icon: Icon(Icons.arrow_upward),
+                            onPressed: () {
+                              setState(() {
+                                if (currNode.parent != null) {
+                                  currNode = currNode.parent;
+                                } else {
+                                  _scaffoldKey.currentState.showSnackBar(SnackBar(
+                                      content: Text(
+                                          "Already at the top-most widget!")));
+                                }
+                              });
+                            },
+                            padding: EdgeInsets.all(8.0),
+                          )
+                        : Container(),
                     IconButton(
                       icon: Icon(Icons.device_hub),
                       onPressed: () {
@@ -200,9 +201,8 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
                         onPressed: () {
                           setState(() {
                             currNode = currNode.children[position];
-
                           });
-                          },
+                        },
                         child: Text(
                           "Expand",
                           style: TextStyle(color: Colors.white),
