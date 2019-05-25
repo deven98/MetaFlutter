@@ -130,6 +130,10 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
   Widget _buildInfo() {
     return SliverList(
         delegate: SliverChildListDelegate([
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal:16.0, vertical: 4.0),
+            child: currNode.parent != null ? Text("Parent: " + currNode.parent.widgetType.toString().split(".")[1]) : Container(),
+          ),
       ExpansionTile(
         initiallyExpanded: currNode.hasChildren ? false : true,
         title: Text(currNode.widgetType.toString().split(".")[1]),
@@ -151,6 +155,7 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
           ),
         ],
       ),
+      currNode.hasChildren ?
       ListTile(
         title: Text(
           "Children",
@@ -171,7 +176,7 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
             }
           });
         },
-      ),
+      ) : Container(),
     ]));
   }
 
