@@ -129,55 +129,66 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
 
   Widget _buildInfo() {
     return SliverList(
-        delegate: SliverChildListDelegate([
+      delegate: SliverChildListDelegate(
+        [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal:16.0, vertical: 4.0),
-            child: currNode.parent != null ? Text("Parent: " + currNode.parent.widgetType.toString().split(".")[1]) : Container(),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+            child: currNode.parent != null
+                ? Text("Parent: " +
+                    currNode.parent.widgetType.toString().split(".")[1])
+                : Container(),
           ),
-      ExpansionTile(
-        initiallyExpanded: currNode.hasChildren ? false : true,
-        title: Text(currNode.widgetType.toString().split(".")[1]),
-        children: <Widget>[
-          if (currNode.hasProperties)
-            Container()
-          else
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                "No properties for this widget",
-                style: TextStyle(fontSize: 16.0),
+          ExpansionTile(
+            initiallyExpanded: currNode.hasChildren ? false : true,
+            title: Text(currNode.widgetType.toString().split(".")[1]),
+            children: <Widget>[
+              if (currNode.hasProperties)
+                Container()
+              else
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    "No properties for this widget",
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: currNode.hasProperties
+                    ? _getAttributes(currNode)
+                    : Container(),
               ),
-            ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child:
-                currNode.hasProperties ? _getAttributes(currNode) : Container(),
+            ],
           ),
+          currNode.hasChildren
+              ? ListTile(
+                  title: Text(
+                    "Children",
+                    textAlign: TextAlign.center,
+                  ),
+                  trailing: Icon(Icons.add),
+                  onTap: () async {
+                    ModelWidget widget = await Navigator.of(context)
+                        .push(new MaterialPageRoute<ModelWidget>(
+                            builder: (BuildContext context) {
+                              return new SelectWidgetDialog();
+                            },
+                            fullscreenDialog: true));
+                    setState(
+                      () {
+                        if (widget != null) {
+                          widget.parent = currNode;
+                          currNode.addChild(widget);
+                        }
+                      },
+                    );
+                  },
+                )
+              : Container(),
         ],
       ),
-      currNode.hasChildren ?
-      ListTile(
-        title: Text(
-          "Children",
-          textAlign: TextAlign.center,
-        ),
-        trailing: Icon(Icons.add),
-        onTap: () async {
-          ModelWidget widget = await Navigator.of(context)
-              .push(new MaterialPageRoute<ModelWidget>(
-                  builder: (BuildContext context) {
-                    return new SelectWidgetDialog();
-                  },
-                  fullscreenDialog: true));
-          setState(() {
-            if (widget != null) {
-              widget.parent = currNode;
-              currNode.addChild(widget);
-            }
-          });
-        },
-      ) : Container(),
-    ]));
+    );
   }
 
   Widget _buildChildren() {
@@ -186,17 +197,12 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
         return Padding(
           padding: const EdgeInsets.all(4.0),
           child: Card(
-            child: ExpansionTile(
-              title: Text(currNode.children[position].widgetType.toString()),
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => WidgetStructurePage()));
-                  },
-                  child: Column(
+            child: InkWell(
+              onLongPress: () => _triggerRemoveWidgetDialog(position),
+              child: ExpansionTile(
+                title: Text(currNode.children[position].widgetType.toString()),
+                children: [
+                  Column(
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -216,8 +222,8 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
                       )
                     ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
@@ -254,6 +260,34 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
           ],
         );
       }).toList(),
+    );
+  }
+
+  void _triggerRemoveWidgetDialog(int position) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Remove this widget and all children?"),
+          content: Text("This action cannot be undone"),
+          actions: <Widget>[
+            FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Cancel")),
+            FlatButton(
+              onPressed: () {
+                setState(() {
+                  currNode.children.remove(position);
+                });
+                Navigator.pop(context);
+              },
+              child: Text("OK"),
+            ),
+          ],
+        );
+      },
     );
   }
 }

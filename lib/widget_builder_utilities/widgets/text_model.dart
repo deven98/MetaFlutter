@@ -4,7 +4,6 @@ import '../model_widget.dart';
 import '../property.dart';
 
 class TextModel extends ModelWidget {
-
   TextModel() {
     this.widgetType = WidgetType.Text;
     this.nodeType = NodeType.End;
@@ -12,20 +11,23 @@ class TextModel extends ModelWidget {
     this.hasChildren = false;
     this.paramNameAndTypes = {
       "text": PropertyType.string,
+      "fontSize": PropertyType.double,
     };
   }
 
   @override
   Widget toWidget() {
-    return Text(params["text"] ?? "");
+    return Text(
+      params["text"] ?? "",
+      style: TextStyle(fontSize: double.tryParse(params["fontSize"])) ?? 14.0,
+    );
   }
 
   @override
   Map getParamValuesMap() {
     return {
       "text": params["text"] ?? "",
+      "fontSize": params["fontSize"] ?? null,
     };
   }
-
-
 }
