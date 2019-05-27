@@ -15,8 +15,8 @@ enum NodeType {
 }
 
 /// Creates a new model for each [WidgetType]
-ModelWidget getNewModelFromType (WidgetType type) {
-  switch(type) {
+ModelWidget getNewModelFromType(WidgetType type) {
+  switch (type) {
     case WidgetType.Text:
       return TextModel();
       break;
@@ -37,16 +37,15 @@ ModelWidget getNewModelFromType (WidgetType type) {
 
 /// Model Widget class
 abstract class ModelWidget {
-  
   /// Type of widget ([Text], [Center], [Column], etc)
   WidgetType widgetType;
-  
+
   /// Children of the widget
   Map<int, ModelWidget> children = {};
 
   /// The parent of the current widget
   ModelWidget parent;
-  
+
   /// How the widget fits into the tree
   /// [NodeType.End] is used for widgets that cannot have children
   /// [NodeType.SingleChild] and [NodeType.MultipleChildren] are self-explanatory
@@ -54,14 +53,14 @@ abstract class ModelWidget {
 
   /// Stores the names of all parameters and input types
   Map paramNameAndTypes = {};
-  
+
   /// The parameter values of the widget
   /// Key is the parameter name and value is the value
   Map params = {};
-  
+
   /// Denotes if the widget has any properties
   bool hasProperties;
-  
+
   /// Denotes if the widget has any children
   bool hasChildren;
 

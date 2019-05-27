@@ -198,7 +198,9 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
           padding: const EdgeInsets.all(4.0),
           child: Card(
             child: InkWell(
-              onLongPress: () => _triggerRemoveWidgetDialog(position),
+              onLongPress: () {
+                _triggerRemoveChildWidgetDialog(position);
+              },
               child: ExpansionTile(
                 title: Text(currNode.children[position].widgetType.toString()),
                 children: [
@@ -263,7 +265,7 @@ class _WidgetStructurePageState extends State<WidgetStructurePage> {
     );
   }
 
-  void _triggerRemoveWidgetDialog(int position) {
+  void _triggerRemoveChildWidgetDialog(int position) {
     showDialog(
       context: context,
       builder: (context) {

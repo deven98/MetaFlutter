@@ -69,8 +69,13 @@ class _TreeScreenState extends State<TreeScreen> {
                     ),
                     onTap: () {
                       widgets[position + 1] = null;
-                      widgets.replaceRange(position + 1, widgets.length, List.generate(widgets.length - position + 1, (v) => null));
-                      selectedIndex[position] = widgets[position].indexOf(widget);
+                      widgets.replaceRange(
+                          position + 1,
+                          widgets.length,
+                          List.generate(
+                              widgets.length - position + 1, (v) => null));
+                      selectedIndex[position] =
+                          widgets[position].indexOf(widget);
                       setState(() {
                         widgets[position + 1] = widget.children.values.toList();
                       });
@@ -78,7 +83,10 @@ class _TreeScreenState extends State<TreeScreen> {
                   ),
                   Expanded(
                       child: Divider(
-                    color: selectedIndex[position] == widgets[position].indexOf(widget) ? Colors.black : Colors.transparent,
+                    color: selectedIndex[position] ==
+                            widgets[position].indexOf(widget)
+                        ? Colors.black
+                        : Colors.transparent,
                   )),
                 ],
               );

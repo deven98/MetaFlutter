@@ -14,13 +14,19 @@ class TextModel extends ModelWidget {
       "fontSize": PropertyType.double,
       "color": PropertyType.color,
     };
+    this.params = {
+      "fontSize": 14.0,
+      "color": Colors.black,
+    };
   }
 
   @override
   Widget toWidget() {
     return Text(
       params["text"] ?? "",
-      style: TextStyle(fontSize: double.tryParse(params["fontSize"]) ?? 14.0, color: params["color"] ?? Colors.black),
+      style: TextStyle(
+          fontSize: double.tryParse(params["fontSize"]) ?? 14.0,
+          color: params["color"] ?? Colors.black),
     );
   }
 

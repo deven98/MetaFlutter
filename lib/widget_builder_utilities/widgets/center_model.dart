@@ -19,7 +19,7 @@ class CenterModel extends ModelWidget {
   Widget toWidget() {
     return Center(
       child: children[0].toWidget(),
-      widthFactor:double.tryParse(params["widthFactor"].toString()) ?? null,
+      widthFactor: double.tryParse(params["widthFactor"].toString()) ?? null,
       heightFactor: double.tryParse(params["heightFactor"].toString()) ?? null,
     );
   }

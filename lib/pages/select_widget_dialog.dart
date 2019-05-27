@@ -13,14 +13,18 @@ class _SelectWidgetDialogState extends State<SelectWidgetDialog> {
       appBar: AppBar(
         title: Text("Select Widget"),
       ),
-      body: ListView.builder(itemBuilder: (context, position) {
-        return ListTile(
-          title: Text(WidgetType.values[position].toString().split(".")[1]),
-          onTap: () {
-            Navigator.pop(context, getNewModelFromType(WidgetType.values[position]));
-          },
-        );
-      }, itemCount: WidgetType.values.length,),
+      body: ListView.builder(
+        itemBuilder: (context, position) {
+          return ListTile(
+            title: Text(WidgetType.values[position].toString().split(".")[1]),
+            onTap: () {
+              Navigator.pop(
+                  context, getNewModelFromType(WidgetType.values[position]));
+            },
+          );
+        },
+        itemCount: WidgetType.values.length,
+      ),
     );
   }
 }

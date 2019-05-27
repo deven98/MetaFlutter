@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ResultScreen extends StatefulWidget {
-
   final Widget widget;
 
   ResultScreen(this.widget);
@@ -18,4 +17,3 @@ class _ResultScreenState extends State<ResultScreen> {
     );
   }
 }
-

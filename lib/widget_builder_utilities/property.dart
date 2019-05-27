@@ -127,7 +127,7 @@ class _PropertyState extends State<Property> {
       case PropertyType.color:
         return DropdownButton(
           items: colors.map(
-                (value) {
+            (value) {
               return DropdownMenuItem(
                 child: Text(value.name),
                 value: value.color,

@@ -4,7 +4,6 @@ import '../model_widget.dart';
 import '../property.dart';
 
 class IconModel extends ModelWidget {
-
   IconModel() {
     this.widgetType = WidgetType.Icon;
     this.nodeType = NodeType.End;
