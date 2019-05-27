@@ -13,10 +13,12 @@ class ContainerModel extends ModelWidget {
       "width": PropertyType.double,
       "height": PropertyType.double,
       "color": PropertyType.color,
+      "alignment": PropertyType.alignment
     };
     this.params = {
-      "width": 0.0,
-      "height": 0.0,
+      "width": "0.0",
+      "height": "0.0",
+      "alignment": Alignment.center
     };
   }
 
@@ -26,7 +28,10 @@ class ContainerModel extends ModelWidget {
       child: children[0]?.toWidget() ?? Container(),
       width: double.tryParse(params["width"]),
       height: double.tryParse(params["height"]),
-      color: params["color"],
+      alignment: params["alignment"],
+      decoration: BoxDecoration(
+        color: params["color"],
+      ),
     );
   }
 
@@ -36,6 +41,7 @@ class ContainerModel extends ModelWidget {
       "width": params["width"],
       "height": params["height"],
       "color": params["color"],
+      "alignment": params["alignment"],
     };
   }
 }

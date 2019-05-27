@@ -5,6 +5,7 @@ import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/property.dart';
 
 /// This page is opened when a widget is to be added a property of another widget and not a child
+/// TODO: NOT TESTED AS NO CURRENT WIDGET HAS WIDGET AS PROPERTY
 class AddPropertyWidgetDialog extends StatefulWidget {
   final ModelWidget widget;
 

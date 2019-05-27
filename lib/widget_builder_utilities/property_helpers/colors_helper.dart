@@ -14,6 +14,7 @@ var colors = [
   ColorInfo("pink", Colors.pink),
   ColorInfo("orange", Colors.orange),
   ColorInfo("white", Colors.white),
+  ColorInfo("transparent", Colors.transparent),
 ];
 
 class ColorInfo {

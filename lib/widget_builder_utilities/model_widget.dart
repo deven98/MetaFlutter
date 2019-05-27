@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/align_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/center_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/column_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/container_model.dart';
@@ -7,7 +8,7 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/icon_model.
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_model.dart';
 
 /// Denotes the type of widget
-enum WidgetType { Text, Center, Column, Icon, Container, Expanded }
+enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align }
 
 /// Denotes if the widget can have zero, one or multiple children
 enum NodeType {
@@ -35,6 +36,9 @@ ModelWidget getNewModelFromType(WidgetType type) {
       return ContainerModel();
     case WidgetType.Expanded:
       return ExpandedModel();
+      break;
+    case WidgetType.Align:
+      return AlignModel();
     default:
       return null;
       break;

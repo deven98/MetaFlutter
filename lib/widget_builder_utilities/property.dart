@@ -4,6 +4,7 @@ import 'package:flutter_app_builder/pages/add_property_widget_dialog.dart';
 import 'model_widget.dart';
 import 'property_helpers/icons_helper.dart';
 import 'property_helpers/colors_helper.dart';
+import 'property_helpers/alignment_helper.dart';
 
 /// Types of properties of a widget
 enum PropertyType {
@@ -15,6 +16,7 @@ enum PropertyType {
   crossAxisAlignment,
   widget,
   color,
+  alignment
 }
 
 /// The property widget displays an input widget for a certain type of property
@@ -134,6 +136,21 @@ class _PropertyState extends State<Property> {
               return DropdownMenuItem(
                 child: Text(value.name),
                 value: value.color,
+              );
+            },
+          ).toList(),
+          onChanged: widget.onValueChanged,
+          value: widget.currentValue,
+          isExpanded: true,
+        );
+        break;
+      case PropertyType.alignment:
+        return DropdownButton(
+          items: alignments.map(
+                (value) {
+              return DropdownMenuItem(
+                child: Text(value.name),
+                value: value.alignment,
               );
             },
           ).toList(),
