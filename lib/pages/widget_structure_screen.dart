@@ -6,11 +6,11 @@ import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/property.dart';
 
 class WidgetStructureScreen extends StatefulWidget {
-
   final ModelWidget root;
   final ModelWidget currNode;
 
-  const WidgetStructureScreen({Key key, this.root, this.currNode}) : super(key: key);
+  const WidgetStructureScreen({Key key, this.root, this.currNode})
+      : super(key: key);
 
   @override
   _WidgetStructureScreenState createState() => _WidgetStructureScreenState();
@@ -55,35 +55,42 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
                   title: Text("Build It!"),
                   floating: true,
                   actions: <Widget>[
-                    currNode != root
-                        ? IconButton(
-                            icon: Icon(Icons.arrow_upward),
-                            onPressed: () {
-                              setState(() {
-                                if (currNode.parent != null) {
-                                  currNode = currNode.parent;
-                                } else {
-                                  _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                      content: Text(
-                                          "Already at the top-most widget!")));
-                                }
-                              });
-                            },
-                            padding: EdgeInsets.all(8.0),
-                          )
-                        : Container(),
                     IconButton(
                       icon: Icon(Icons.device_hub),
                       onPressed: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => TreeScreen(
-                                      rootWidget: root,
-                                    )));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TreeScreen(
+                                  rootWidget: root,
+                                ),
+                          ),
+                        );
                       },
                       padding: EdgeInsets.all(8.0),
-                    )
+                    ),
+                    if (currNode != root)
+                      IconButton(
+                        icon: Icon(Icons.arrow_upward),
+                        onPressed: () {
+                          setState(() {
+                            if (currNode.parent != null) {
+                              currNode = currNode.parent;
+                            } else {
+                              _scaffoldKey.currentState.showSnackBar(SnackBar(
+                                  content:
+                                      Text("Already at the top-most widget!")));
+                            }
+                          });
+                        },
+                        padding: EdgeInsets.all(8.0),
+                      ),
+                    if (currNode == root)
+                      IconButton(
+                        icon: Icon(Icons.delete),
+                        color: Colors.red,
+                        onPressed: _triggerDeleteLayoutDialog,
+                      ),
                   ],
                 ),
                 _buildInfo(),
@@ -273,6 +280,36 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
           ],
         );
       }).toList(),
+    );
+  }
+
+  void _triggerDeleteLayoutDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Delete the entire layout?"),
+          content: Text(
+              "If you want to delete a child widget instead, long press on a child to delete."),
+          actions: <Widget>[
+            FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Cancel")),
+            FlatButton(
+              onPressed: () {
+                setState(() {
+                  root = null;
+                  currNode = null;
+                });
+                Navigator.pop(context);
+              },
+              child: Text("OK"),
+            ),
+          ],
+        );
+      },
     );
   }
 

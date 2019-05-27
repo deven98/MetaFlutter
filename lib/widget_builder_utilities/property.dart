@@ -18,6 +18,7 @@ enum PropertyType {
   color,
   alignment,
   boxFit,
+  boolean,
 }
 
 /// The property widget displays an input widget for a certain type of property
@@ -166,6 +167,21 @@ class _PropertyState extends State<Property> {
       case PropertyType.boxFit:
         return DropdownButton(
           items: BoxFit.values.map(
+                (value) {
+              return DropdownMenuItem(
+                child: Text(value.toString()),
+                value: value,
+              );
+            },
+          ).toList(),
+          onChanged: widget.onValueChanged,
+          value: widget.currentValue,
+          isExpanded: true,
+        );
+        break;
+      case PropertyType.boolean:
+        return DropdownButton(
+          items: [true,false].map(
                 (value) {
               return DropdownMenuItem(
                 child: Text(value.toString()),
