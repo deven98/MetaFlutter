@@ -16,8 +16,8 @@ class AlignModel extends ModelWidget {
       "alignment": PropertyType.alignment
     };
     this.params = {
-      "widthFactor": "1.0",
-      "heightFactor": "1.0",
+      "widthFactor": "100.0",
+      "heightFactor": "100.0",
       "alignment": Alignment.center,
     };
   }

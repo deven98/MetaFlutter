@@ -26,8 +26,9 @@ class TextModel extends ModelWidget {
     return Text(
       params["text"] ?? "",
       style: TextStyle(
-          fontSize: double.tryParse(params["fontSize"]) ?? 14.0,
-          color: params["color"] ?? Colors.black),
+        fontSize: double.tryParse(params["fontSize"]) ?? 14.0,
+        color: params["color"] ?? Colors.black,
+      ),
     );
   }
 

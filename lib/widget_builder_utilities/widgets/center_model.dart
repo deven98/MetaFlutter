@@ -14,8 +14,8 @@ class CenterModel extends ModelWidget {
       "heightFactor": PropertyType.double,
     };
     this.params = {
-      "widthFactor": "1.0",
-      "heightFactor": "1.0",
+      "widthFactor": "100.0",
+      "heightFactor": "100.0",
     };
   }
 
@@ -23,8 +23,8 @@ class CenterModel extends ModelWidget {
   Widget toWidget() {
     return Center(
       child: children[0]?.toWidget() ?? Container(),
-      widthFactor: double.tryParse(params["widthFactor"].toString()) ?? null,
-      heightFactor: double.tryParse(params["heightFactor"].toString()) ?? null,
+      widthFactor: double.tryParse(params["widthFactor"].toString()),
+      heightFactor: double.tryParse(params["heightFactor"].toString()),
     );
   }
 

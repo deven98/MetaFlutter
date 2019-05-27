@@ -8,9 +8,10 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/fitted_box_
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/icon_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/padding_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/textfield_model.dart';
 
 /// Denotes the type of widget
-enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align, Padding, FittedBox }
+enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align, Padding, FittedBox, TextField }
 
 /// Denotes if the widget can have zero, one or multiple children
 enum NodeType {
@@ -47,6 +48,9 @@ ModelWidget getNewModelFromType(WidgetType type) {
       break;
     case WidgetType.FittedBox:
       return FittedBoxModel();
+      break;
+    case WidgetType.TextField:
+      return TextFieldModel();
       break;
     default:
       return null;
