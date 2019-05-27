@@ -12,6 +12,7 @@ class TextModel extends ModelWidget {
     this.paramNameAndTypes = {
       "text": PropertyType.string,
       "fontSize": PropertyType.double,
+      "color": PropertyType.color,
     };
   }
 
@@ -19,15 +20,16 @@ class TextModel extends ModelWidget {
   Widget toWidget() {
     return Text(
       params["text"] ?? "",
-      style: TextStyle(fontSize: double.tryParse(params["fontSize"])) ?? 14.0,
+      style: TextStyle(fontSize: double.tryParse(params["fontSize"]) ?? 14.0, color: params["color"] ?? Colors.black),
     );
   }
 
   @override
   Map getParamValuesMap() {
     return {
-      "text": params["text"] ?? "",
-      "fontSize": params["fontSize"] ?? null,
+      "text": params["text"],
+      "fontSize": params["fontSize"],
+      "color": params["color"],
     };
   }
 }

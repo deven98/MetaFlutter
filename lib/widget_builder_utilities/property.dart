@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/pages/add_property_widget_dialog.dart';
 
 import 'model_widget.dart';
-import 'icons_helper.dart';
+import 'property_helpers/icons_helper.dart';
+import 'property_helpers/colors_helper.dart';
 
 /// Types of properties of a widget
 enum PropertyType {
@@ -13,6 +14,7 @@ enum PropertyType {
   mainAxisAlignment,
   crossAxisAlignment,
   widget,
+  color,
 }
 
 /// The property widget displays an input widget for a certain type of property
@@ -120,6 +122,21 @@ class _PropertyState extends State<Property> {
             widget.onValueChanged(newWidget);
           },
           child: Text("Edit property"),
+        );
+        break;
+      case PropertyType.color:
+        return DropdownButton(
+          items: colors.map(
+                (value) {
+              return DropdownMenuItem(
+                child: Text(value.name),
+                value: value.color,
+              );
+            },
+          ).toList(),
+          onChanged: widget.onValueChanged,
+          value: widget.currentValue,
+          isExpanded: true,
         );
         break;
       default:
