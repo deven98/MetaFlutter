@@ -5,18 +5,29 @@ import 'package:flutter_app_builder/pages/tree_screen.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/property.dart';
 
-class WidgetStructurePage extends StatefulWidget {
-  WidgetStructurePage();
+class WidgetStructureScreen extends StatefulWidget {
+
+  final ModelWidget root;
+  final ModelWidget currNode;
+
+  const WidgetStructureScreen({Key key, this.root, this.currNode}) : super(key: key);
 
   @override
-  _WidgetStructurePageState createState() => _WidgetStructurePageState();
+  _WidgetStructureScreenState createState() => _WidgetStructureScreenState();
 }
 
-class _WidgetStructurePageState extends State<WidgetStructurePage> {
+class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
   ModelWidget root;
   ModelWidget currNode;
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    root = widget.root;
+    currNode = widget.currNode;
+  }
 
   @override
   Widget build(BuildContext context) {

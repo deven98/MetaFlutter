@@ -4,7 +4,7 @@ import '../model_widget.dart';
 import '../property.dart';
 
 class CenterModel extends ModelWidget {
-  CenterModel() {
+  CenterModel(){
     this.widgetType = WidgetType.Center;
     this.nodeType = NodeType.SingleChild;
     this.hasProperties = true;

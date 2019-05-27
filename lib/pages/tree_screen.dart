@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_builder/pages/widget_structure_screen.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
 
 class TreeScreen extends StatefulWidget {
@@ -14,6 +15,8 @@ class _TreeScreenState extends State<TreeScreen> {
   List<List<ModelWidget>> widgets = [];
   List<int> selectedIndex = [];
 
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
@@ -27,6 +30,7 @@ class _TreeScreenState extends State<TreeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text("Widget Tree"),
       ),
@@ -79,15 +83,36 @@ class _TreeScreenState extends State<TreeScreen> {
                       setState(() {
                         widgets[position + 1] = widget.children.values.toList();
                       });
+                      _scaffoldKey.currentState.showSnackBar(
+                        SnackBar(
+                          content: Text("Go to this widget"),
+                          action: SnackBarAction(
+                            label: "Go",
+                            onPressed: () {
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => WidgetStructureScreen(
+                                        root: this.widget.rootWidget,
+                                        currNode: widget,
+                                      ),
+                                ),
+                                (val) => false,
+                              );
+                            },
+                          ),
+                        ),
+                      );
                     },
                   ),
                   Expanded(
-                      child: Divider(
-                    color: selectedIndex[position] ==
-                            widgets[position].indexOf(widget)
-                        ? Colors.black
-                        : Colors.transparent,
-                  )),
+                    child: Divider(
+                      color: selectedIndex[position] ==
+                              widgets[position].indexOf(widget)
+                          ? Colors.black
+                          : Colors.transparent,
+                    ),
+                  ),
                 ],
               );
             }).toList(),

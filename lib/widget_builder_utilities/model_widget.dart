@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/center_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/column_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/container_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/icon_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_model.dart';
 
 /// Denotes the type of widget
-enum WidgetType { Text, Center, Column, Icon }
+enum WidgetType { Text, Center, Column, Icon, Container }
 
 /// Denotes if the widget can have zero, one or multiple children
 enum NodeType {
@@ -29,6 +30,8 @@ ModelWidget getNewModelFromType(WidgetType type) {
     case WidgetType.Icon:
       return IconModel();
       break;
+    case WidgetType.Container:
+      return ContainerModel();
     default:
       return null;
       break;
