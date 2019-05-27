@@ -4,11 +4,13 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/center_mode
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/column_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/container_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/expanded_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/fitted_box_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/icon_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/padding_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_model.dart';
 
 /// Denotes the type of widget
-enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align }
+enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align, Padding, FittedBox }
 
 /// Denotes if the widget can have zero, one or multiple children
 enum NodeType {
@@ -39,6 +41,13 @@ ModelWidget getNewModelFromType(WidgetType type) {
       break;
     case WidgetType.Align:
       return AlignModel();
+      break;
+    case WidgetType.Padding:
+      return PaddingModel();
+      break;
+    case WidgetType.FittedBox:
+      return FittedBoxModel();
+      break;
     default:
       return null;
       break;

@@ -16,7 +16,8 @@ enum PropertyType {
   crossAxisAlignment,
   widget,
   color,
-  alignment
+  alignment,
+  boxFit,
 }
 
 /// The property widget displays an input widget for a certain type of property
@@ -59,7 +60,8 @@ class _PropertyState extends State<Property> {
             border: OutlineInputBorder(),
             labelText: "Enter a decimal number",
           ),
-          controller: TextEditingController(text: widget.currentValue.toString()),
+          controller:
+              TextEditingController(text: widget.currentValue.toString()),
           onChanged: widget.onValueChanged,
           keyboardType:
               TextInputType.numberWithOptions(signed: true, decimal: true),
@@ -70,7 +72,8 @@ class _PropertyState extends State<Property> {
           decoration: InputDecoration(
               border: OutlineInputBorder(), labelText: "Enter an integer"),
           onChanged: widget.onValueChanged,
-          controller: TextEditingController(text: widget.currentValue.toString()),
+          controller:
+              TextEditingController(text: widget.currentValue.toString()),
           keyboardType:
               TextInputType.numberWithOptions(signed: true, decimal: false),
         );
@@ -79,7 +82,8 @@ class _PropertyState extends State<Property> {
         return TextField(
           decoration: InputDecoration(
               border: OutlineInputBorder(), labelText: "Enter a string"),
-          controller: TextEditingController(text: widget.currentValue.toString()),
+          controller:
+              TextEditingController(text: widget.currentValue.toString()),
           onChanged: widget.onValueChanged,
         );
         break;
@@ -147,10 +151,25 @@ class _PropertyState extends State<Property> {
       case PropertyType.alignment:
         return DropdownButton(
           items: alignments.map(
-                (value) {
+            (value) {
               return DropdownMenuItem(
                 child: Text(value.name),
                 value: value.alignment,
+              );
+            },
+          ).toList(),
+          onChanged: widget.onValueChanged,
+          value: widget.currentValue,
+          isExpanded: true,
+        );
+        break;
+      case PropertyType.boxFit:
+        return DropdownButton(
+          items: BoxFit.values.map(
+                (value) {
+              return DropdownMenuItem(
+                child: Text(value.toString()),
+                value: value,
               );
             },
           ).toList(),
