@@ -7,11 +7,12 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/expanded_mo
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/fitted_box_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/icon_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/padding_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/row_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_field_model.dart';
 
 /// Denotes the type of widget
-enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align, Padding, FittedBox, TextField }
+enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align, Padding, FittedBox, TextField, Row }
 
 /// Denotes if the widget can have zero, one or multiple children
 enum NodeType {
@@ -51,6 +52,9 @@ ModelWidget getNewModelFromType(WidgetType type) {
       break;
     case WidgetType.TextField:
       return TextFieldModel();
+      break;
+    case WidgetType.Row:
+      return RowModel();
       break;
     default:
       return null;
