@@ -23,7 +23,7 @@ class ContainerModel extends ModelWidget {
   @override
   Widget toWidget() {
     return Container(
-      child: children[0].toWidget(),
+      child: children[0]?.toWidget() ?? Container(),
       width: double.tryParse(params["width"]),
       height: double.tryParse(params["height"]),
       color: params["color"],

@@ -57,6 +57,7 @@ class _PropertyState extends State<Property> {
             border: OutlineInputBorder(),
             labelText: "Enter a decimal number",
           ),
+          controller: TextEditingController(text: widget.currentValue.toString()),
           onChanged: widget.onValueChanged,
           keyboardType:
               TextInputType.numberWithOptions(signed: true, decimal: true),
@@ -67,6 +68,7 @@ class _PropertyState extends State<Property> {
           decoration: InputDecoration(
               border: OutlineInputBorder(), labelText: "Enter an integer"),
           onChanged: widget.onValueChanged,
+          controller: TextEditingController(text: widget.currentValue.toString()),
           keyboardType:
               TextInputType.numberWithOptions(signed: true, decimal: false),
         );
@@ -75,6 +77,7 @@ class _PropertyState extends State<Property> {
         return TextField(
           decoration: InputDecoration(
               border: OutlineInputBorder(), labelText: "Enter a string"),
+          controller: TextEditingController(text: widget.currentValue.toString()),
           onChanged: widget.onValueChanged,
         );
         break;

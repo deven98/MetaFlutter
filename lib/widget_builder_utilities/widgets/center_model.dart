@@ -18,7 +18,7 @@ class CenterModel extends ModelWidget {
   @override
   Widget toWidget() {
     return Center(
-      child: children[0].toWidget(),
+      child: children[0]?.toWidget() ?? Container(),
       widthFactor: double.tryParse(params["widthFactor"].toString()) ?? null,
       heightFactor: double.tryParse(params["heightFactor"].toString()) ?? null,
     );
