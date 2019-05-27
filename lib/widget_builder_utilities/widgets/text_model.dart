@@ -15,6 +15,7 @@ class TextModel extends ModelWidget {
       "color": PropertyType.color,
     };
     this.params = {
+      "text": "",
       "fontSize": "14.0",
       "color": Colors.black,
     };
