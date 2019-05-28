@@ -270,11 +270,15 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
-                child: Property(widget.paramNameAndTypes[entry.key], (value) {
-                  setState(() {
-                    widget.params[entry.key] = value;
-                  });
-                }, currentValue: map[entry.key]),
+                child: Property(
+                  widget.paramNameAndTypes[entry.key],
+                  (value) {
+                    setState(() {
+                      widget.params[entry.key] = value;
+                    });
+                  },
+                  currentValue: map[entry.key],
+                ),
               ),
             ),
           ],

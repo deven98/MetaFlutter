@@ -13,14 +13,29 @@ class _SelectWidgetDialogState extends State<SelectWidgetDialog> {
       appBar: AppBar(
         title: Text("Select Widget"),
       ),
-      body: ListView.builder(
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, childAspectRatio: 2.0),
         itemBuilder: (context, position) {
-          return ListTile(
-            title: Text(WidgetType.values[position].toString().split(".")[1]),
+          return InkWell(
             onTap: () {
               Navigator.pop(
                   context, getNewModelFromType(WidgetType.values[position]));
             },
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Card(
+                color: Colors.blue,
+                child: Center(
+                  child: Text(
+                    WidgetType.values[position].toString().split(".")[1],
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           );
         },
         itemCount: WidgetType.values.length,
