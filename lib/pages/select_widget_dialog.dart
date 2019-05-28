@@ -17,21 +17,18 @@ class _SelectWidgetDialogState extends State<SelectWidgetDialog> {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, childAspectRatio: 2.0),
         itemBuilder: (context, position) {
-          return InkWell(
-            onTap: () {
-              Navigator.pop(
-                  context, getNewModelFromType(WidgetType.values[position]));
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Card(
-                color: Colors.blue,
+          return Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Card(
+              elevation: 2.0,
+              child: InkWell(
+                onTap: () {
+                  Navigator.pop(
+                      context, getNewModelFromType(WidgetType.values[position]));
+                },
                 child: Center(
                   child: Text(
                     WidgetType.values[position].toString().split(".")[1],
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
                   ),
                 ),
               ),

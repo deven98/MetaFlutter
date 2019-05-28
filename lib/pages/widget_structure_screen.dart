@@ -33,7 +33,7 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: root != null ? FloatingActionButton.extended(
         onPressed: () {
           Navigator.push(
             context,
@@ -46,7 +46,7 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
         },
         label: Text("Build"),
         icon: Icon(Icons.done),
-      ),
+      ) : null,
       body: currNode == null
           ? _buildAddWidgetPage()
           : CustomScrollView(
