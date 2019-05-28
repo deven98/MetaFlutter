@@ -220,7 +220,10 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
                 _triggerRemoveChildWidgetDialog(position);
               },
               child: ExpansionTile(
-                title: Text(currNode.children[position].widgetType.toString()),
+                title: Center(
+                    child: Text(currNode.children[position].widgetType
+                        .toString()
+                        .split(".")[1])),
                 children: [
                   Column(
                     children: <Widget>[
