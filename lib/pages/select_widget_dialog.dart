@@ -18,9 +18,9 @@ class _SelectWidgetDialogState extends State<SelectWidgetDialog> {
             crossAxisCount: 2, childAspectRatio: 2.0),
         itemBuilder: (context, position) {
           return Padding(
-            padding: const EdgeInsets.all(4.0),
+            padding: const EdgeInsets.all(2.0),
             child: Card(
-              elevation: 2.0,
+              color: Colors.blue[50],
               child: InkWell(
                 onTap: () {
                   Navigator.pop(
@@ -29,6 +29,10 @@ class _SelectWidgetDialogState extends State<SelectWidgetDialog> {
                 child: Center(
                   child: Text(
                     WidgetType.values[position].toString().split(".")[1],
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.w500
+                    ),
                   ),
                 ),
               ),
