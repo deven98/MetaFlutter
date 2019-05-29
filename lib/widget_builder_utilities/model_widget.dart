@@ -8,11 +8,12 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/fitted_box_
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/icon_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/padding_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/row_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/safe_area_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_field_model.dart';
 
 /// Denotes the type of widget
-enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align, Padding, FittedBox, TextField, Row }
+enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align, Padding, FittedBox, TextField, Row, SafeArea }
 
 /// Denotes if the widget can have zero, one or multiple children
 enum NodeType {
@@ -56,6 +57,8 @@ ModelWidget getNewModelFromType(WidgetType type) {
     case WidgetType.Row:
       return RowModel();
       break;
+    case WidgetType.SafeArea:
+      return SafeAreaModel();
     default:
       return null;
       break;
