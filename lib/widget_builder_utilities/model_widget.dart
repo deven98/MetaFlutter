@@ -39,6 +39,7 @@ ModelWidget getNewModelFromType(WidgetType type) {
       break;
     case WidgetType.Container:
       return ContainerModel();
+      break;
     case WidgetType.Expanded:
       return ExpandedModel();
       break;
@@ -59,6 +60,7 @@ ModelWidget getNewModelFromType(WidgetType type) {
       break;
     case WidgetType.SafeArea:
       return SafeAreaModel();
+      break;
     default:
       return null;
       break;
