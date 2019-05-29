@@ -18,6 +18,8 @@ class _TreeScreenState extends State<TreeScreen> {
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
+  ModelWidget _selectedWidget;
+
   @override
   void initState() {
     super.initState();
@@ -36,6 +38,30 @@ class _TreeScreenState extends State<TreeScreen> {
         title: Text("Widget Tree"),
       ),
       body: _buildBody(),
+      bottomNavigationBar: _selectedWidget != null
+          ? BottomAppBar(
+              child: ListTile(
+                title: Text("Click here to navigate to widget"),
+                trailing: InkWell(
+                  child: Text("Go", style: TextStyle(color: Colors.blue),),
+                  onTap: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WidgetStructureScreen(
+                              root: this.widget.rootWidget,
+                              currNode: _selectedWidget,
+                            ),
+                      ),
+                      (val) => false,
+                    );
+                  },
+                ),
+              ),
+            )
+          : Container(
+              height: 0.0,
+            ),
     );
   }
 
@@ -85,26 +111,9 @@ class _TreeScreenState extends State<TreeScreen> {
                       setState(() {
                         widgets[position + 1] = widget.children.values.toList();
                       });
-                      _scaffoldKey.currentState.showSnackBar(
-                        SnackBar(
-                          content: Text("Go to this widget"),
-                          action: SnackBarAction(
-                            label: "Go",
-                            onPressed: () {
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => WidgetStructureScreen(
-                                        root: this.widget.rootWidget,
-                                        currNode: widget,
-                                      ),
-                                ),
-                                (val) => false,
-                              );
-                            },
-                          ),
-                        ),
-                      );
+                      setState(() {
+                        _selectedWidget = widget;
+                      });
                     },
                   ),
                   Expanded(
