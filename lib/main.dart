@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         accentColor: Colors.blueAccent,
-        scaffoldBackgroundColor: Color.fromRGBO(245, 245, 245, 1.0),
+        scaffoldBackgroundColor: Colors.white,
       ),
       home: WidgetStructureScreen(),
       debugShowCheckedModeBanner: false,

@@ -21,7 +21,10 @@ class _ResultScreenState extends State<ResultScreen> {
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 8.0),
             child: GestureDetector(
-              child: Icon(Icons.clear, size: 30.0,),
+              child: Icon(
+                Icons.clear,
+                size: 30.0,
+              ),
               onTap: () {
                 Navigator.pop(context);
               },

@@ -14,6 +14,12 @@ class _SelectWidgetDialogState extends State<SelectWidgetDialog> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Select Widget"),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Icon(Icons.search),
+          ),
+        ],
       ),
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

@@ -8,8 +8,6 @@ import 'property_helpers/alignment_helper.dart';
 
 import 'package:flutter_app_builder/components/selecting_text_editing_controller.dart';
 
-
-
 /// Types of properties of a widget
 enum PropertyType {
   icon,
@@ -45,7 +43,7 @@ class _PropertyState extends State<Property> {
   Widget build(BuildContext context) {
     switch (widget.type) {
       case PropertyType.icon:
-        return DropdownButton(
+        return CustomDropdownButton(
           items: icons.map((data) {
             return DropdownMenuItem(
               child: Text(data.name),
@@ -56,7 +54,6 @@ class _PropertyState extends State<Property> {
             widget.onValueChanged(value);
           },
           value: widget.currentValue,
-          isExpanded: true,
         );
         break;
       case PropertyType.double:
@@ -65,8 +62,8 @@ class _PropertyState extends State<Property> {
             border: OutlineInputBorder(),
             labelText: "Enter a decimal number",
           ),
-          controller:
-              SelectingTextEditingController(text: widget.currentValue.toString()),
+          controller: SelectingTextEditingController(
+              text: widget.currentValue.toString()),
           onChanged: widget.onValueChanged,
           keyboardType:
               TextInputType.numberWithOptions(signed: true, decimal: true),
@@ -77,8 +74,8 @@ class _PropertyState extends State<Property> {
           decoration: InputDecoration(
               border: OutlineInputBorder(), labelText: "Enter an integer"),
           onChanged: widget.onValueChanged,
-          controller:
-              SelectingTextEditingController(text: widget.currentValue.toString()),
+          controller: SelectingTextEditingController(
+              text: widget.currentValue.toString()),
           keyboardType:
               TextInputType.numberWithOptions(signed: true, decimal: false),
         );
@@ -87,13 +84,13 @@ class _PropertyState extends State<Property> {
         return TextField(
           decoration: InputDecoration(
               border: OutlineInputBorder(), labelText: "Enter a string"),
-          controller:
-              SelectingTextEditingController(text: widget.currentValue.toString()),
+          controller: SelectingTextEditingController(
+              text: widget.currentValue.toString()),
           onChanged: widget.onValueChanged,
         );
         break;
       case PropertyType.mainAxisAlignment:
-        return DropdownButton(
+        return CustomDropdownButton(
           items: MainAxisAlignment.values.map(
             (value) {
               return DropdownMenuItem(
@@ -104,13 +101,12 @@ class _PropertyState extends State<Property> {
           ).toList(),
           onChanged: widget.onValueChanged,
           value: widget.currentValue,
-          isExpanded: true,
         );
         break;
       case PropertyType.crossAxisAlignment:
-        return DropdownButton(
+        return CustomDropdownButton(
           items: CrossAxisAlignment.values.map(
-            (value) {
+                (value) {
               return DropdownMenuItem(
                 child: Text(value.toString().split(".")[1]),
                 value: value,
@@ -119,7 +115,6 @@ class _PropertyState extends State<Property> {
           ).toList(),
           onChanged: widget.onValueChanged,
           value: widget.currentValue,
-          isExpanded: true,
         );
         break;
       case PropertyType.widget:
@@ -139,7 +134,7 @@ class _PropertyState extends State<Property> {
         );
         break;
       case PropertyType.color:
-        return DropdownButton(
+        return CustomDropdownButton(
           items: colors.map(
             (value) {
               return DropdownMenuItem(
@@ -150,11 +145,10 @@ class _PropertyState extends State<Property> {
           ).toList(),
           onChanged: widget.onValueChanged,
           value: widget.currentValue,
-          isExpanded: true,
         );
         break;
       case PropertyType.alignment:
-        return DropdownButton(
+        return CustomDropdownButton(
           items: alignments.map(
             (value) {
               return DropdownMenuItem(
@@ -165,13 +159,12 @@ class _PropertyState extends State<Property> {
           ).toList(),
           onChanged: widget.onValueChanged,
           value: widget.currentValue,
-          isExpanded: true,
         );
         break;
       case PropertyType.boxFit:
-        return DropdownButton(
+        return CustomDropdownButton(
           items: BoxFit.values.map(
-                (value) {
+            (value) {
               return DropdownMenuItem(
                 child: Text(value.toString()),
                 value: value,
@@ -180,13 +173,12 @@ class _PropertyState extends State<Property> {
           ).toList(),
           onChanged: widget.onValueChanged,
           value: widget.currentValue,
-          isExpanded: true,
         );
         break;
       case PropertyType.boolean:
-        return DropdownButton(
-          items: [true,false].map(
-                (value) {
+        return CustomDropdownButton(
+          items: [true, false].map(
+            (value) {
               return DropdownMenuItem(
                 child: Text(value.toString()),
                 value: value,
@@ -195,11 +187,41 @@ class _PropertyState extends State<Property> {
           ).toList(),
           onChanged: widget.onValueChanged,
           value: widget.currentValue,
-          isExpanded: true,
         );
         break;
       default:
         return null;
     }
+  }
+}
+
+class CustomDropdownButton extends StatelessWidget {
+  final List<DropdownMenuItem> items;
+  final Function onChanged;
+  final value;
+
+  const CustomDropdownButton({Key key, this.items, this.onChanged, this.value})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButtonHideUnderline(
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.black45,
+            ),
+            borderRadius: BorderRadius.circular(4.0)),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 2.0),
+          child: DropdownButton(
+            items: items,
+            onChanged: onChanged,
+            value: value,
+            isExpanded: true,
+          ),
+        ),
+      ),
+    );
   }
 }
