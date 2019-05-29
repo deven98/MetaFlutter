@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/pages/widget_structure_screen.dart';
+import 'package:flutter_app_builder/utils/color_utils.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
 
 class TreeScreen extends StatefulWidget {
@@ -70,6 +71,7 @@ class _TreeScreenState extends State<TreeScreen> {
                   InkWell(
                     child: Chip(
                       label: Text(widget.widgetType.toString().split(".")[1]),
+                      backgroundColor: getColorPair(widget).backgroundColor,
                     ),
                     onTap: () {
                       widgets[position + 1] = null;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/pages/result_screen.dart';
 import 'package:flutter_app_builder/pages/select_widget_dialog.dart';
 import 'package:flutter_app_builder/pages/tree_screen.dart';
+import 'package:flutter_app_builder/utils/color_utils.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/property.dart';
 
@@ -33,20 +34,22 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      floatingActionButton: root != null ? FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ResultScreen(
-                    root.toWidget(),
+      floatingActionButton: root != null
+          ? FloatingActionButton.extended(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ResultScreen(
+                          root.toWidget(),
+                        ),
                   ),
-            ),
-          );
-        },
-        label: Text("Build"),
-        icon: Icon(Icons.done),
-      ) : null,
+                );
+              },
+              label: Text("Build"),
+              icon: Icon(Icons.done),
+            )
+          : null,
       body: currNode == null
           ? _buildAddWidgetPage()
           : CustomScrollView(
@@ -107,40 +110,56 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
   }
 
   Widget _buildAddWidgetPage() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            "No widget added yet",
-            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          Text("Click here to add one"),
-          IconButton(
-            icon: Icon(Icons.add_circle_outline),
-            color: Colors.black45,
-            onPressed: () async {
-              ModelWidget newWidget = await Navigator.of(context)
-                  .push(new MaterialPageRoute<ModelWidget>(
-                      builder: (BuildContext context) {
-                        return new SelectWidgetDialog();
-                      },
-                      fullscreenDialog: true));
-              setState(() {
-                if (root == null) {
-                  root = newWidget;
-                  currNode = root;
-                } else {
-                  currNode.addChild(newWidget);
-                }
-              });
-            },
-            iconSize: 60.0,
-          ),
-        ],
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.white, Colors.blue[200]],
+          stops: [0.5, 1.0],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "No widget added yet",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Text(
+              "Click here to add one",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+            ),
+            IconButton(
+              icon: Icon(Icons.add_circle_outline),
+              color: Colors.black45,
+              onPressed: () async {
+                ModelWidget newWidget = await Navigator.of(context)
+                    .push(new MaterialPageRoute<ModelWidget>(
+                        builder: (BuildContext context) {
+                          return new SelectWidgetDialog();
+                        },
+                        fullscreenDialog: true));
+                setState(() {
+                  if (root == null) {
+                    root = newWidget;
+                    currNode = root;
+                  } else {
+                    currNode.addChild(newWidget);
+                  }
+                });
+              },
+              iconSize: 60.0,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -149,35 +168,45 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
     return SliverList(
       delegate: SliverChildListDelegate(
         [
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-            child: currNode.parent != null
-                ? Text("Parent: " +
-                    currNode.parent.widgetType.toString().split(".")[1])
-                : Container(),
-          ),
-          ExpansionTile(
-            initiallyExpanded: currNode.hasChildren ? false : true,
-            title: Text(currNode.widgetType.toString().split(".")[1]),
-            children: <Widget>[
-              if (currNode.hasProperties)
-                Container()
-              else
+          Container(
+            color: getColorPair(currNode).backgroundColor,
+            child: Column(
+              children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    "No properties for this widget",
-                    style: TextStyle(fontSize: 16.0),
-                  ),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 4.0),
+                  child: currNode.parent != null
+                      ? Text("Parent: " +
+                          currNode.parent.widgetType.toString().split(".")[1])
+                      : Container(),
                 ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: currNode.hasProperties
-                    ? _getAttributes(currNode)
-                    : Container(),
-              ),
-            ],
+                ExpansionTile(
+                  initiallyExpanded: currNode.hasChildren ? false : true,
+                  title: Text(
+                    currNode.widgetType.toString().split(".")[1],
+                    style: TextStyle(color: getColorPair(currNode).textColor),
+                  ),
+                  children: <Widget>[
+                    if (currNode.hasProperties)
+                      Container()
+                    else
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "No properties for this widget",
+                          style: TextStyle(fontSize: 16.0),
+                        ),
+                      ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: currNode.hasProperties
+                          ? _getAttributes(currNode)
+                          : Container(),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           currNode.hasChildren
               ? ListTile(
@@ -215,15 +244,23 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
         return Padding(
           padding: const EdgeInsets.all(4.0),
           child: Card(
+            color: getColorPair(currNode.children[position]).backgroundColor,
             child: InkWell(
               onLongPress: () {
                 _triggerRemoveChildWidgetDialog(position);
               },
               child: ExpansionTile(
                 title: Center(
-                    child: Text(currNode.children[position].widgetType
+                  child: Text(
+                    currNode.children[position].widgetType
                         .toString()
-                        .split(".")[1])),
+                        .split(".")[1],
+                    style: TextStyle(
+                      color:
+                          getColorPair(currNode.children[position]).textColor,
+                    ),
+                  ),
+                ),
                 children: [
                   Column(
                     children: <Widget>[
