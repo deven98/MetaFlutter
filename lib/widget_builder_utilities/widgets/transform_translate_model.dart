@@ -5,7 +5,7 @@ import '../property.dart';
 
 class TransformTranslateModel extends ModelWidget {
   TransformTranslateModel() {
-    this.widgetType = WidgetType.TransformRotate;
+    this.widgetType = WidgetType.TransformTranslate;
     this.nodeType = NodeType.SingleChild;
     this.hasProperties = true;
     this.hasChildren = true;
