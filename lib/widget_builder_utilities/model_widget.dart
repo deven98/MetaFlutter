@@ -12,11 +12,12 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/padding_mod
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/raised_button_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/row_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/safe_area_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/stack_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_field_model.dart';
 
 /// Denotes the type of widget
-enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align, Padding, FittedBox, TextField, Row, SafeArea, FlatButton, RaisedButton, FlutterLogo }
+enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align, Padding, FittedBox, TextField, Row, SafeArea, FlatButton, RaisedButton, FlutterLogo, Stack }
 
 /// Denotes if the widget can have zero, one or multiple children
 enum NodeType {
@@ -73,6 +74,8 @@ ModelWidget getNewModelFromType(WidgetType type) {
     case WidgetType.FlutterLogo:
       return FlutterLogoModel();
       break;
+    case WidgetType.Stack:
+      return StackModel();
     default:
       return null;
       break;
