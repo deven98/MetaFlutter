@@ -372,9 +372,18 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
                 child: Text("Cancel")),
             FlatButton(
               onPressed: () {
-                setState(() {
+                if (currNode.children.length == 1) {
                   currNode.children.remove(position);
-                });
+                } else {
+                  int i = position;
+                  while (currNode.children[i + 1] != null) {
+                    currNode.children[i] = currNode.children[i + 1];
+                    i++;
+                  }
+                  currNode.children.remove(currNode.children.length - 1);
+                }
+
+                setState(() {});
                 Navigator.pop(context);
               },
               child: Text("OK"),
