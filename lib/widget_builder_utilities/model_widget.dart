@@ -18,9 +18,12 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/safe_area_m
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/stack_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_field_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/transform_rotate_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/transform_scale_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/transform_translate_model.dart';
 
 /// Denotes the type of widget
-enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align, Padding, FittedBox, TextField, Row, SafeArea, FlatButton, RaisedButton, FlutterLogo, Stack, ListView, GridView, AspectRatio }
+enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align, Padding, FittedBox, TextField, Row, SafeArea, FlatButton, RaisedButton, FlutterLogo, Stack, ListView, GridView, AspectRatio, TransformRotate, TransformTranslate, TransformScale }
 
 /// Denotes if the widget can have zero, one or multiple children
 enum NodeType {
@@ -88,6 +91,15 @@ ModelWidget getNewModelFromType(WidgetType type) {
       break;
     case WidgetType.AspectRatio:
       return AspectRatioModel();
+      break;
+    case WidgetType.TransformRotate:
+      return TransformRotateModel();
+      break;
+    case WidgetType.TransformScale:
+      return TransformScaleModel();
+      break;
+    case WidgetType.TransformTranslate:
+      return TransformTranslateModel();
       break;
     default:
       return null;
