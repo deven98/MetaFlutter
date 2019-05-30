@@ -6,6 +6,8 @@ import 'package:flutter_app_builder/utils/color_utils.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/property.dart';
 
+import 'home_screen.dart';
+
 class WidgetStructureScreen extends StatefulWidget {
   final ModelWidget root;
   final ModelWidget currNode;
@@ -56,6 +58,10 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
               slivers: <Widget>[
                 SliverAppBar(
                   title: Text("Build It!"),
+                  leading: IconButton(
+                    icon: Icon(Icons.clear),
+                    onPressed: _triggerExitPageDialog,
+                  ),
                   floating: true,
                   actions: <Widget>[
                     IconButton(
@@ -76,15 +82,20 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
                       IconButton(
                         icon: Icon(Icons.arrow_upward),
                         onPressed: () {
-                          setState(() {
-                            if (currNode.parent != null) {
-                              currNode = currNode.parent;
-                            } else {
-                              _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                  content:
-                                      Text("Already at the top-most widget!")));
-                            }
-                          });
+                          setState(
+                            () {
+                              if (currNode.parent != null) {
+                                currNode = currNode.parent;
+                              } else {
+                                _scaffoldKey.currentState.showSnackBar(
+                                  SnackBar(
+                                    content:
+                                        Text("Already at the top-most widget!"),
+                                  ),
+                                );
+                              }
+                            },
+                          );
                         },
                         padding: EdgeInsets.all(8.0),
                       ),
@@ -385,6 +396,36 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
 
                 setState(() {});
                 Navigator.pop(context);
+              },
+              child: Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _triggerExitPageDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Return to home screen?"),
+          content: Text("This action cannot be undone"),
+          actions: <Widget>[
+            FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Cancel")),
+            FlatButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomeScreen(),
+                  ),
+                );
               },
               child: Text("OK"),
             ),
