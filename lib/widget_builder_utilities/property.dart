@@ -22,7 +22,8 @@ enum PropertyType {
   alignment,
   boxFit,
   boolean,
-  scrollPhysics
+  scrollPhysics,
+  axis,
 }
 
 /// The property widget displays an input widget for a certain type of property
@@ -198,6 +199,20 @@ class _PropertyState extends State<Property> {
               return DropdownMenuItem(
                 child: Text(value.name),
                 value: value.physics,
+              );
+            },
+          ).toList(),
+          onChanged: widget.onValueChanged,
+          value: widget.currentValue,
+        );
+        break;
+      case PropertyType.axis:
+        return CustomDropdownButton(
+          items: [Axis.horizontal, Axis.vertical].map(
+                (value) {
+              return DropdownMenuItem(
+                child: Text(value.toString()),
+                value: value,
               );
             },
           ).toList(),
