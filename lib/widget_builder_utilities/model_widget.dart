@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/align_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/aspect_ratio_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/center_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/column_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/container_model.dart';
@@ -19,7 +20,7 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_model.
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_field_model.dart';
 
 /// Denotes the type of widget
-enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align, Padding, FittedBox, TextField, Row, SafeArea, FlatButton, RaisedButton, FlutterLogo, Stack, ListView, GridView }
+enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align, Padding, FittedBox, TextField, Row, SafeArea, FlatButton, RaisedButton, FlutterLogo, Stack, ListView, GridView, AspectRatio }
 
 /// Denotes if the widget can have zero, one or multiple children
 enum NodeType {
@@ -84,6 +85,9 @@ ModelWidget getNewModelFromType(WidgetType type) {
       break;
     case WidgetType.GridView:
       return GridViewModel();
+      break;
+    case WidgetType.AspectRatio:
+      return AspectRatioModel();
       break;
     default:
       return null;
