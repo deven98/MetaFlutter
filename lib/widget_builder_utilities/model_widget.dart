@@ -7,6 +7,7 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/expanded_mo
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/fitted_box_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/flat_button_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/flutter_logo_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/grid_view_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/icon_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/list_view_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/padding_model.dart';
@@ -18,7 +19,7 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_model.
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_field_model.dart';
 
 /// Denotes the type of widget
-enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align, Padding, FittedBox, TextField, Row, SafeArea, FlatButton, RaisedButton, FlutterLogo, Stack, ListView }
+enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align, Padding, FittedBox, TextField, Row, SafeArea, FlatButton, RaisedButton, FlutterLogo, Stack, ListView, GridView }
 
 /// Denotes if the widget can have zero, one or multiple children
 enum NodeType {
@@ -77,8 +78,13 @@ ModelWidget getNewModelFromType(WidgetType type) {
       break;
     case WidgetType.Stack:
       return StackModel();
+      break;
     case WidgetType.ListView:
       return ListViewModel();
+      break;
+    case WidgetType.GridView:
+      return GridViewModel();
+      break;
     default:
       return null;
       break;

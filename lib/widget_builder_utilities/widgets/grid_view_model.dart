@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import '../model_widget.dart';
 import '../property.dart';
 
-class ListViewModel extends ModelWidget {
-  ListViewModel() {
-    this.widgetType = WidgetType.ListView;
+class GridViewModel extends ModelWidget {
+  GridViewModel() {
+    this.widgetType = WidgetType.GridView;
     this.nodeType = NodeType.MultipleChildren;
     this.hasProperties = true;
     this.hasChildren = true;
     this.paramNameAndTypes = {
       "physics": PropertyType.scrollPhysics,
       "shrinkWrap": PropertyType.boolean,
+      "crossAxisCount": PropertyType.integer,
     };
     this.params = {
       "shrinkWrap": false,
@@ -20,14 +21,16 @@ class ListViewModel extends ModelWidget {
 
   @override
   Widget toWidget() {
-    return ListView(
+    return GridView(
       children: children.isNotEmpty
           ? children.values.map((widget) {
-        return widget.toWidget();
-      }).toList()
+              return widget.toWidget();
+            }).toList()
           : [],
-      physics: params["physics"] ?? AlwaysScrollableScrollPhysics(),
       shrinkWrap: params["shrinkWrap"] ?? false,
+      physics: params["physics"],
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: params["crossAxisCount"] ?? 2),
     );
   }
 
@@ -36,6 +39,7 @@ class ListViewModel extends ModelWidget {
     return {
       "physics": params["physics"],
       "shrinkWrap": params["shrinkWrap"],
+      "crossAxisCount": PropertyType.integer,
     };
   }
 }
