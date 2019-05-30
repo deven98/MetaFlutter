@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/pages/add_property_widget_dialog.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/property_helpers/scroll_physics_helper.dart';
 
 import 'model_widget.dart';
 import 'property_helpers/icons_helper.dart';
@@ -21,6 +22,7 @@ enum PropertyType {
   alignment,
   boxFit,
   boolean,
+  scrollPhysics
 }
 
 /// The property widget displays an input widget for a certain type of property
@@ -182,6 +184,20 @@ class _PropertyState extends State<Property> {
               return DropdownMenuItem(
                 child: Text(value.toString()),
                 value: value,
+              );
+            },
+          ).toList(),
+          onChanged: widget.onValueChanged,
+          value: widget.currentValue,
+        );
+        break;
+      case PropertyType.scrollPhysics:
+        return CustomDropdownButton(
+          items: scrollPhysicsTypes.map(
+                (ScrollPhysicsInfo value) {
+              return DropdownMenuItem(
+                child: Text(value.name),
+                value: value.physics,
               );
             },
           ).toList(),
