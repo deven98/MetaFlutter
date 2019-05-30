@@ -8,12 +8,12 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 2)).then((val) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => HomeScreen()));
     });
   }
 
@@ -21,9 +21,16 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.blue,
+        color: Colors.white,
         child: Center(
-          child: Text("MetaFlutter", style: TextStyle(color: Colors.white),),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16.0),
+            child: Image.asset(
+              'images/app_logo.png',
+              height: 100.0,
+              width: 100.0,
+            ),
+          ),
         ),
       ),
     );
