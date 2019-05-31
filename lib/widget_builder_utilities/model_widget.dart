@@ -22,9 +22,35 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_field_
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/transform_rotate_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/transform_scale_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/transform_translate_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/cardview_model.dart';
 
 /// Denotes the type of widget
-enum WidgetType { Text, Center, Column, Icon, Container, Expanded, Align, Padding, FittedBox, TextField, Row, SafeArea, FlatButton, RaisedButton, FlutterLogo, Stack, ListView, GridView, AspectRatio, TransformRotate, TransformTranslate, TransformScale, PageView }
+enum WidgetType {
+  Text,
+  Center,
+  Column,
+  Icon,
+  Container,
+  Expanded,
+  Align,
+  Padding,
+  FittedBox,
+  TextField,
+  Row,
+  SafeArea,
+  FlatButton,
+  RaisedButton,
+  FlutterLogo,
+  Stack,
+  ListView,
+  GridView,
+  AspectRatio,
+  TransformRotate,
+  TransformTranslate,
+  TransformScale,
+  PageView,
+  CardView
+}
 
 /// Denotes if the widget can have zero, one or multiple children
 enum NodeType {
@@ -104,6 +130,9 @@ ModelWidget getNewModelFromType(WidgetType type) {
       break;
     case WidgetType.PageView:
       return PageViewModel();
+      break;
+    case WidgetType.CardView:
+      return CardViewModel();
       break;
     default:
       return null;
