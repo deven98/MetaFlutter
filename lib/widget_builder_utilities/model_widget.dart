@@ -22,7 +22,7 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/text_field_
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/transform_rotate_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/transform_scale_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/transform_translate_model.dart';
-import 'package:flutter_app_builder/widget_builder_utilities/widgets/cardview_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/card_view_model.dart';
 
 /// Denotes the type of widget
 enum WidgetType {
