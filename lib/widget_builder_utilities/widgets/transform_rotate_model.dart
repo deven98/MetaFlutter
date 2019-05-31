@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../model_widget.dart';
 import '../property.dart';
 
+/// Provides a model for recreating the [Transform.rotate] widget
 class TransformRotateModel extends ModelWidget {
   TransformRotateModel() {
     this.widgetType = WidgetType.TransformRotate;

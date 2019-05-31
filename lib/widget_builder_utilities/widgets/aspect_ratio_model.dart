@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../model_widget.dart';
 import '../property.dart';
 
+/// Provides a model for recreating the [AspectRatio] widget
 class AspectRatioModel extends ModelWidget {
   AspectRatioModel(){
     this.widgetType = WidgetType.AspectRatio;

@@ -2,20 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/utils/color_utils.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
 
+/// Page for selecting widget to add to the tree
 class SelectWidgetDialog extends StatefulWidget {
   @override
   _SelectWidgetDialogState createState() => _SelectWidgetDialogState();
 }
 
 class _SelectWidgetDialogState extends State<SelectWidgetDialog> {
+
+  /// Controller for search bar
   TextEditingController _searchController = TextEditingController();
 
+  /// The search parameter to search widget name
   String searchParam = "";
 
   @override
   Widget build(BuildContext context) {
+
+    /// Stores result of search
     List<WidgetType> types = [];
 
+    /// Perform search
     if (searchParam.trim() == "") {
       types = WidgetType.values;
     } else {
@@ -70,6 +77,7 @@ class _SelectWidgetDialogState extends State<SelectWidgetDialog> {
     );
   }
 
+  /// Builds search bar
   Widget _buildSearchBar() {
     return Container(
       margin: EdgeInsets.all(8.0),

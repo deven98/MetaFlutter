@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'home_screen.dart';
 
+/// Splash screen
+/// TODO: Move splash screen to Android side to initialise before Flutter app starts
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();

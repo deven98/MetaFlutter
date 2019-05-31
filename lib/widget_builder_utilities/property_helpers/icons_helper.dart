@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Provides icons for selection of property
 var icons = [
   IconInfo("threesixty", Icons.threesixty),
   IconInfo("four_k", Icons.four_k),

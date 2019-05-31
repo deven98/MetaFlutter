@@ -226,6 +226,7 @@ class _PropertyState extends State<Property> {
   }
 }
 
+/// Creates a custom [DropdownButton] with borders to display in [Property] inputs
 class CustomDropdownButton extends StatelessWidget {
   final List<DropdownMenuItem> items;
   final Function onChanged;

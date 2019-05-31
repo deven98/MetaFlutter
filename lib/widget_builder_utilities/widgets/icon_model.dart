@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../model_widget.dart';
 import '../property.dart';
 
+/// Provides a model for recreating the [Icon] widget
 class IconModel extends ModelWidget {
   IconModel() {
     this.widgetType = WidgetType.Icon;

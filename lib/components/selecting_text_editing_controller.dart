@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Retains caret position when widget is rebuilt. Important for [Property] widgets.
 class SelectingTextEditingController extends TextEditingController {
   SelectingTextEditingController({String text}) : super(text: text) {
     if (text != null) setTextAndPosition(text);

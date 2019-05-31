@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../model_widget.dart';
 import '../property.dart';
 
+/// Provides a model for recreating the [Transform.translate] widget
 class TransformTranslateModel extends ModelWidget {
   TransformTranslateModel() {
     this.widgetType = WidgetType.TransformTranslate;

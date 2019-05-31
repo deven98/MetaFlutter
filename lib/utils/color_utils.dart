@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
 
+/// Helper for color-coding the widgets
+/// This file helps the UI and not the properties, hence, it is separated from the property_helpers directory
 class ColorPair {
   Color textColor;
   Color backgroundColor;

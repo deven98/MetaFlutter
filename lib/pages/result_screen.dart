@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// Displays the result of the user's selection of widgets
+/// TODO: Better error handling
 class ResultScreen extends StatefulWidget {
   final Widget widget;
 

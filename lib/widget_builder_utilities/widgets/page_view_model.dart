@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../model_widget.dart';
 import '../property.dart';
 
+/// Provides a model for recreating the [PageView] widget
 class PageViewModel extends ModelWidget {
   PageViewModel() {
     this.widgetType = WidgetType.PageView;

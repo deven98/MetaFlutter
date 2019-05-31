@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Provides alignments for selection of property
 var alignments = [
   AlignmentInfo("topLeft", Alignment.topLeft),
   AlignmentInfo("topCenter", Alignment.topCenter),

@@ -9,7 +9,11 @@ import 'package:flutter_app_builder/widget_builder_utilities/property.dart';
 import 'home_screen.dart';
 
 class WidgetStructureScreen extends StatefulWidget {
+
+  /// Root of the [ModelWidget] tree
   final ModelWidget root;
+
+  /// The current expanded node
   final ModelWidget currNode;
 
   const WidgetStructureScreen({Key key, this.root, this.currNode})
@@ -20,7 +24,11 @@ class WidgetStructureScreen extends StatefulWidget {
 }
 
 class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
+
+  /// Root of the [ModelWidget] tree
   ModelWidget root;
+
+  /// The current expanded node
   ModelWidget currNode;
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
@@ -120,6 +128,8 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
     );
   }
 
+  /// If root is null, this page is shown to add a widget
+  /// TODO: Return to the home page button is not shown in this screen
   Widget _buildAddWidgetPage() {
     return Container(
       decoration: BoxDecoration(
@@ -175,6 +185,7 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
     );
   }
 
+  /// Builds information about the [currNode] widget including properties and children
   Widget _buildInfo() {
     return SliverList(
       delegate: SliverChildListDelegate(
@@ -249,6 +260,7 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
     );
   }
 
+  /// Builds a list of children for the [currNode]
   Widget _buildChildren() {
     return SliverList(
       delegate: SliverChildBuilderDelegate((context, position) {
@@ -302,6 +314,7 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
     );
   }
 
+  /// Gets all attributes of a given [ModelWidget]
   Widget _getAttributes(ModelWidget widget) {
     Map map = widget.getParamValuesMap();
     return Column(
@@ -338,6 +351,7 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
     );
   }
 
+  /// Dialog to delete the complete layout from root
   void _triggerDeleteLayoutDialog() {
     showDialog(
       context: context,
@@ -368,6 +382,7 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
     );
   }
 
+  /// Dialog to remove a child of the [currNode]
   void _triggerRemoveChildWidgetDialog(int position) {
     showDialog(
       context: context,
@@ -405,6 +420,7 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
     );
   }
 
+  /// Dialog to exit to [HomeScreen]
   void _triggerExitPageDialog() {
     showDialog(
       context: context,

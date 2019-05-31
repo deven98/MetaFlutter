@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Provides colors for selection of property
 var colors = [
   ColorInfo("black", Colors.black),
   ColorInfo("red", Colors.red),

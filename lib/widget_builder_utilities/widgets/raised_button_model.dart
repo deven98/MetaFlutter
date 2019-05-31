@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../model_widget.dart';
 import '../property.dart';
 
+/// Provides a model for recreating the [RaisedButton] widget
 class RaisedButtonModel extends ModelWidget {
   RaisedButtonModel() {
     this.widgetType = WidgetType.RaisedButton;

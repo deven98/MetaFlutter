@@ -1,16 +1,21 @@
-# flutter_app_builder
 
-A new Flutter application.
+# MetaFlutter
 
-## Getting Started
+MetaFlutter is a project to create Flutter layouts on device. 
 
-This project is a starting point for a Flutter application.
+Learn, explore and experiment with Flutter widgets directly on your phone.
 
-A few resources to get you started if this is your first Flutter project:
+MetaFlutter allows you to create Flutter layouts using a wide and constantly growing range of Flutter widgets. 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Build out an idea you had instantly, try out something you've never tried before or just use it as a tool for Flutter layout demonstrations. 
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+No login. Free to use. Open-source.
+
+![https://github.com/deven98/flutter_app_builder/blob/master/screenshots/screenshot1.png]
+
+### To start contributing
+
+Read [CONTRIBUTING.md](https://github.com/deven98/flutter_app_builder/blob/master/CONTRIBUTING.md) to start contributing to this project. 
+
+We would love to have you on board.
+

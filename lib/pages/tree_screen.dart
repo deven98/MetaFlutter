@@ -3,7 +3,10 @@ import 'package:flutter_app_builder/pages/widget_structure_screen.dart';
 import 'package:flutter_app_builder/utils/color_utils.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
 
+/// Displays the widget tree of the current selection of widgets of the user
 class TreeScreen extends StatefulWidget {
+
+  /// Root widget of the tree
   final ModelWidget rootWidget;
 
   const TreeScreen({Key key, this.rootWidget}) : super(key: key);
@@ -13,7 +16,11 @@ class TreeScreen extends StatefulWidget {
 }
 
 class _TreeScreenState extends State<TreeScreen> {
+
+  /// Stores a list of widgets at every level
   List<List<ModelWidget>> widgets = [];
+
+  /// Stores selected widget index at every node of the tree
   List<int> selectedIndex = [];
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
@@ -65,6 +72,7 @@ class _TreeScreenState extends State<TreeScreen> {
     );
   }
 
+  /// Builds widget tree
   Widget _buildBody() {
     return ListView.separated(
       separatorBuilder: (context, position) {

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/pages/widget_structure_screen.dart';
 
-/// Keep this page for the intro page which has the start, saved programs and template options
+/// First page to see after splash screen.
+/// Keep this page as entry for main program, saved templates, etc.
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();

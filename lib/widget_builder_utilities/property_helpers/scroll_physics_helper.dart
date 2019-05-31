@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Provides ScrollPhysics for selection of property
 List<ScrollPhysicsInfo> scrollPhysicsTypes = [
   ScrollPhysicsInfo("AlwaysScrollableScrollPhysics", AlwaysScrollableScrollPhysics()),
   ScrollPhysicsInfo("NeverScrollableScrollPhysics", NeverScrollableScrollPhysics()),
