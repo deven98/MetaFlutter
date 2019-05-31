@@ -11,7 +11,9 @@ Build out an idea you had instantly, try out something you've never tried before
 
 No login. Free to use. Open-source.
 
-![https://github.com/deven98/MetaFlutter/blob/master/screenshots/screenshot1.png]()
+[Play Store Link](https://play.google.com/store/apps/details?id=n.dev.flutter_app_builder)
+
+![alt text](https://github.com/deven98/MetaFlutter/blob/master/screenshots/screenshot1.png)
 
 ### To start contributing
 
