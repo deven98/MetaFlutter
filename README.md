@@ -15,7 +15,7 @@ No login. Free to use. Open-source.
 
 ### To start contributing
 
-Read [CONTRIBUTING.md](https://github.com/deven98/flutter_app_builder/blob/master/CONTRIBUTING.md) to start contributing to this project. 
+Read [CONTRIBUTING.md](https://github.com/deven98/MetaFlutter/blob/master/CONTRIBUTING.md) to start contributing to this project. 
 
 We would love to have you on board.
 

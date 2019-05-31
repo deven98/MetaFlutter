@@ -11,8 +11,8 @@
 
 ### To add a new widget
 
-All widgets extend [ModelWidget](https://github.com/deven98/flutter_app_builder/blob/master/lib/widget_builder_utilities/model_widget.dart). 
-Check out other widget models like [CenterModel](https://github.com/deven98/flutter_app_builder/blob/master/lib/widget_builder_utilities/widgets/center_model.dart)
+All widgets extend [ModelWidget](https://github.com/deven98/MetaFlutter/blob/master/lib/widget_builder_utilities/model_widget.dart). 
+Check out other widget models like [CenterModel](https://github.com/deven98/MetaFlutter/blob/master/lib/widget_builder_utilities/widgets/center_model.dart)
 to get started. Make sure you fill all required parameters and document anything extra needed.
 
 ### Found a bug?
