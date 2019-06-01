@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/pages/add_property_widget_dialog.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/property_helpers/fontStyle_helper.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/property_helpers/scroll_physics_helper.dart';
 
 import 'model_widget.dart';
@@ -24,6 +25,7 @@ enum PropertyType {
   boolean,
   scrollPhysics,
   axis,
+  fontStyle
 }
 
 /// The property widget displays an input widget for a certain type of property
@@ -59,6 +61,19 @@ class _PropertyState extends State<Property> {
           value: widget.currentValue,
         );
         break;
+        case PropertyType.fontStyle:
+          return CustomDropdownButton(
+          items: font.map((data) {
+            return DropdownMenuItem(
+              child: Text(data.name),
+              value: data.fontStyle,
+            );
+          }).toList(),
+          onChanged: (value) {
+            widget.onValueChanged(value);
+          },
+          value: widget.currentValue,
+        );
       case PropertyType.double:
         return TextField(
           decoration: InputDecoration(
