@@ -6,7 +6,7 @@ class RadioModel extends ModelWidget {
 
   RadioModel() {
     this.widgetType = WidgetType.RadioButton;
-    this.nodeType = NodeType.SingleChild;
+    this.nodeType = NodeType.End;
     this.hasProperties = false;
     this.hasChildren = false;
   }

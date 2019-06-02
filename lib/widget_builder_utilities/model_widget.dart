@@ -26,6 +26,9 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/transform_t
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/card_view_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/icon_button_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/chip_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/slider_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/switch_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/checkbox_model.dart';
 
 /// Denotes the type of widget
 enum WidgetType {
@@ -55,7 +58,10 @@ enum WidgetType {
   CardView,
   IconButton,
   RadioButton,
-  ChipView
+  ChipView,
+  Slider,
+  SwitchBox,
+  CheckBox
 }
 
 /// Denotes if the widget can have zero, one or multiple children
@@ -143,13 +149,20 @@ ModelWidget getNewModelFromType(WidgetType type) {
     case WidgetType.IconButton:
       return IconButtonModel();
       break;
-
     case WidgetType.RadioButton:
       return RadioModel();
       break;
-
     case WidgetType.ChipView:
       return ChipModel();
+      break;
+    case WidgetType.Slider:
+      return SliderModel();
+      break;
+    case WidgetType.SwitchBox:
+      return SwitchModel();
+      break;
+    case WidgetType.CheckBox:
+      return CheckBoxModel();
       break;
     default:
       return null;
