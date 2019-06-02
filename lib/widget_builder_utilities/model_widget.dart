@@ -67,7 +67,6 @@ enum NodeType {
 
 /// Creates a new model for each [WidgetType]
 ModelWidget getNewModelFromType(WidgetType type) {
-  var RadioButton;
   switch (type) {
     case WidgetType.Text:
       return TextModel();
