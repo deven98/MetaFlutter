@@ -187,4 +187,8 @@ abstract class ModelWidget {
 
   /// Get current values of all parameters of the widget model
   Map getParamValuesMap();
+
+  /// Converts current widget to code and returns as string
+  String toCode();
+
 }

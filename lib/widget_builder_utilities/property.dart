@@ -156,7 +156,7 @@ class _PropertyState extends State<Property> {
             (value) {
               return DropdownMenuItem(
                 child: Text(value.name),
-                value: value.alignment,
+                value: value,
               );
             },
           ).toList(),

@@ -43,4 +43,17 @@ class GridViewModel extends ModelWidget {
       "crossAxisCount": PropertyType.integer,
     };
   }
+
+  @override
+  String toCode() {
+    return '''GridView(
+      children: ${children.isNotEmpty ? children.values.map((widget) {
+            return widget.toCode();
+          }).toList() : []},
+      shrinkWrap: ${params["shrinkWrap"] ?? false},
+      physics: ${params["physics"] ?? 'AlwaysScrollableScrollPhysics'}(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: ${params["crossAxisCount"] ?? 2}),
+    )''';
+  }
 }

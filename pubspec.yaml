@@ -17,6 +17,7 @@ environment:
   sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
+  unicorndial: ^1.1.5
   flutter:
     sdk: flutter
 

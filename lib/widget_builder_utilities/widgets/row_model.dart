@@ -31,8 +31,8 @@ class RowModel extends ModelWidget {
           : params["crossAxisAlignment"],
       children: children.isNotEmpty
           ? children.values.map((widget) {
-        return widget.toWidget();
-      }).toList()
+              return widget.toWidget();
+            }).toList()
           : [],
     );
   }
@@ -43,5 +43,16 @@ class RowModel extends ModelWidget {
       "mainAxisAlignment": params["mainAxisAlignment"],
       "crossAxisAlignment": params["crossAxisAlignment"],
     };
+  }
+
+  @override
+  String toCode() {
+    return '''Row(
+      mainAxisAlignment: ${params["mainAxisAlignment"] == null ? MainAxisAlignment.start : params["mainAxisAlignment"]},
+      crossAxisAlignment: ${params["crossAxisAlignment"] == null ? CrossAxisAlignment.start : params["crossAxisAlignment"]},
+      children: ${children.isNotEmpty ? children.values.map((widget) {
+            return widget.toCode();
+          }).toList() : []},
+    )''';
   }
 }

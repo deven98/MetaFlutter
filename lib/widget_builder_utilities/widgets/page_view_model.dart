@@ -39,4 +39,17 @@ class PageViewModel extends ModelWidget {
       "scrollDirection": params["scrollDirection"]
     };
   }
+
+  @override
+  String toCode() {
+    return '''PageView(
+      children: ${children.isNotEmpty
+          ? children.values.map((widget) {
+        return widget.toCode();
+      }).toList()
+          : []},
+      physics: ${params["physics"] ?? 'AlwaysScrollableScrollPhysics'}(),
+      scrollDirection: ${params["scrollDirection"] ?? Axis.horizontal},
+    )''';
+  }
 }

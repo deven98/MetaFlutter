@@ -30,4 +30,13 @@ class RaisedButtonModel extends ModelWidget {
       "color": params["color"],
     };
   }
+
+  @override
+  String toCode() {
+    return '''RaisedButton(
+      child: ${children[0]?.toCode() ?? 'Container()'},
+      onPressed: () {},
+      color: ${params["color"]},
+    )''';
+  }
 }

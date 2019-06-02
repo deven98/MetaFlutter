@@ -19,7 +19,6 @@ class AlignModel extends ModelWidget {
     this.params = {
       "widthFactor": "100.0",
       "heightFactor": "100.0",
-      "alignment": Alignment.center,
     };
   }
 
@@ -40,6 +39,16 @@ class AlignModel extends ModelWidget {
       "heightFactor": params["heightFactor"],
       "alignment": params["alignment"],
     };
+  }
+
+  @override
+  String toCode() {
+    return '''Align(
+      child: ${children[0]?.toCode() ?? "Container()"},
+      widthFactor: ${double.tryParse(params["widthFactor"].toString()) ?? null},
+      heightFactor: ${double.tryParse(params["heightFactor"].toString()) ?? null},
+      alignment: ${params["alignment"] ?? "Alignment.center"},
+    )''';
   }
 
 }

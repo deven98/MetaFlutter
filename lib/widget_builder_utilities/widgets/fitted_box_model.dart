@@ -17,7 +17,6 @@ class FittedBoxModel extends ModelWidget {
     };
     this.params = {
       "fit": BoxFit.contain,
-      "alignment": Alignment.center,
     };
   }
 
@@ -36,6 +35,15 @@ class FittedBoxModel extends ModelWidget {
       "alignment": params["alignment"],
       "fit": params["fit"],
     };
+  }
+
+  @override
+  String toCode() {
+    return '''FittedBox(
+      child: ${children[0]?.toCode() ?? 'Container()'},
+      alignment: ${params["alignment"] ?? Alignment.center},
+      fit: ${params["fit"] ?? BoxFit.contain},
+    )''';
   }
 
 }

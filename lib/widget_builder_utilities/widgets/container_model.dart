@@ -19,7 +19,6 @@ class ContainerModel extends ModelWidget {
     this.params = {
       "width": "0.0",
       "height": "0.0",
-      "alignment": Alignment.center
     };
   }
 
@@ -44,5 +43,18 @@ class ContainerModel extends ModelWidget {
       "color": params["color"],
       "alignment": params["alignment"],
     };
+  }
+
+  @override
+  String toCode() {
+    return '''Container(
+      child: ${children[0]?.toCode() ?? 'Container()'},
+      width: ${double.tryParse(params["width"])},
+      height: ${double.tryParse(params["height"])},
+      alignment: ${params["alignment"]},
+      decoration: BoxDecoration(
+        color: ${params["color"]},
+      ),
+    )''';
   }
 }

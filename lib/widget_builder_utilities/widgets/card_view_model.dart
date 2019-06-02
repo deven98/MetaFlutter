@@ -38,4 +38,14 @@ class CardViewModel extends ModelWidget {
     );
   }
 
+  @override
+  String toCode() {
+    return '''Card(
+      child: ${children[0]?.toCode() ?? 'Container()'},
+      elevation: ${params["elevation"] ?? 2.0},
+      color: ${params["color"] ?? Colors.white},
+    )''';
+  }
+
+
 }

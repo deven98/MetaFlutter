@@ -35,4 +35,12 @@ class TransformTranslateModel extends ModelWidget {
       "translationY": params["translationY"],
     };
   }
+
+  @override
+  String toCode() {
+    return '''Transform.translate(
+      child: ${children[0]?.toCode() ?? 'Container()'},
+      offset: Offset(${double.tryParse(params["translationX"]) ?? 0.0}, ${double.tryParse(params["translationY"]) ?? 0.0}),
+    )''';
+  }
 }

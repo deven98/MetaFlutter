@@ -34,4 +34,12 @@ class ExpandedModel extends ModelWidget {
     };
   }
 
+  @override
+  String toCode() {
+    return '''Expanded(
+      child: ${children[0]?.toCode() ?? 'Container()'},
+      flex: ${int.tryParse(params["flex"])},
+    )''';
+  }
+
 }

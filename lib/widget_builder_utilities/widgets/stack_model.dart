@@ -29,4 +29,17 @@ class StackModel extends ModelWidget {
   Map getParamValuesMap() {
     return {};
   }
+
+  @override
+  String toCode() {
+    return '''Stack(
+      children: ${children.isNotEmpty
+          ? children.values.map(
+            (widget) {
+          return widget.toCode();
+        },
+      ).toList()
+          : []},
+    )''';
+  }
 }
