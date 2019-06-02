@@ -6,8 +6,12 @@
 2) Add app on-boarding 
 3) Improve UI
 4) Add get-layout-code functionality ✔️
-5) Add Save code functionality
+5) Add save code functionality
 6) Add tests
+
+## Longer term TODOs
+
+1) Optimise for Flutter Web
 
 ### To add a new widget
 
