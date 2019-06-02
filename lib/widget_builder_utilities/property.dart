@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/pages/add_property_widget_dialog.dart';
-import 'package:flutter_app_builder/widget_builder_utilities/property_helpers/font_Style_helper.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/property_helpers/font_style_helper.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/property_helpers/scroll_physics_helper.dart';
 
 import 'model_widget.dart';
