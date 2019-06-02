@@ -156,57 +156,74 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
   /// If root is null, this page is shown to add a widget
   /// TODO: Return to the home page button is not shown in this screen
   Widget _buildAddWidgetPage() {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.white, Colors.blue[200]],
-          stops: [0.5, 1.0],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+    return Stack(
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.white, Colors.blue[200]],
+              stops: [0.5, 1.0],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "No widget added yet",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Text(
+                  "Click here to add one",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                ),
+                IconButton(
+                  icon: Icon(Icons.add_circle_outline),
+                  color: Colors.black45,
+                  onPressed: () async {
+                    ModelWidget newWidget = await Navigator.of(context)
+                        .push(new MaterialPageRoute<ModelWidget>(
+                            builder: (BuildContext context) {
+                              return new SelectWidgetDialog();
+                            },
+                            fullscreenDialog: true));
+                    setState(() {
+                      if (root == null) {
+                        root = newWidget;
+                        currNode = root;
+                      } else {
+                        currNode.addChild(newWidget);
+                      }
+                    });
+                  },
+                  iconSize: 60.0,
+                ),
+              ],
+            ),
+          ),
         ),
-      ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "No widget added yet",
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w300,
+        Positioned(
+          left: 8.0,
+          top: 8.0,
+          child: SafeArea(
+            child: IconButton(
+              icon: Icon(
+                Icons.clear,
+                color: Colors.black,
               ),
+              onPressed: _triggerExitPageDialog,
             ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Text(
-              "Click here to add one",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
-            ),
-            IconButton(
-              icon: Icon(Icons.add_circle_outline),
-              color: Colors.black45,
-              onPressed: () async {
-                ModelWidget newWidget = await Navigator.of(context)
-                    .push(new MaterialPageRoute<ModelWidget>(
-                        builder: (BuildContext context) {
-                          return new SelectWidgetDialog();
-                        },
-                        fullscreenDialog: true));
-                setState(() {
-                  if (root == null) {
-                    root = newWidget;
-                    currNode = root;
-                  } else {
-                    currNode.addChild(newWidget);
-                  }
-                });
-              },
-              iconSize: 60.0,
-            ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 
@@ -461,6 +478,7 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
                 child: Text("Cancel")),
             FlatButton(
               onPressed: () {
+                Navigator.of(context).pop();
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
