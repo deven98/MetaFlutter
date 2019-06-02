@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/align_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/aspect_ratio_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/center_model.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/icon_model.
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/list_view_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/padding_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/page_view_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/radio_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/raised_button_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/row_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/safe_area_model.dart';
@@ -23,6 +25,7 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/transform_r
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/transform_scale_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/transform_translate_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/card_view_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/icon_button_model.dart';
 
 /// Denotes the type of widget
 enum WidgetType {
@@ -49,7 +52,9 @@ enum WidgetType {
   TransformTranslate,
   TransformScale,
   PageView,
-  CardView
+  CardView,
+  IconButton,
+  RadioButton
 }
 
 /// Denotes if the widget can have zero, one or multiple children
@@ -61,6 +66,7 @@ enum NodeType {
 
 /// Creates a new model for each [WidgetType]
 ModelWidget getNewModelFromType(WidgetType type) {
+  var RadioButton;
   switch (type) {
     case WidgetType.Text:
       return TextModel();
@@ -133,6 +139,13 @@ ModelWidget getNewModelFromType(WidgetType type) {
       break;
     case WidgetType.CardView:
       return CardViewModel();
+      break;
+    case WidgetType.IconButton:
+      return IconButtonModel();
+      break;
+
+    case WidgetType.RadioButton:
+      return RadioModel();
       break;
     default:
       return null;
