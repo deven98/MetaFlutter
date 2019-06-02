@@ -53,7 +53,7 @@ class ContainerModel extends ModelWidget {
       height: ${double.tryParse(params["height"])},
       alignment: ${params["alignment"]},
       decoration: BoxDecoration(
-        color: ${params["color"]},
+        color: ${params["color"].shade500},
       ),
     )''';
   }

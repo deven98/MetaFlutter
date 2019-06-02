@@ -52,7 +52,7 @@ class TextModel extends ModelWidget {
       '${params["text"] ?? ""}',
       style: TextStyle(
         fontSize: ${double.tryParse(params["fontSize"]) ?? 14.0},
-        color: ${params["color"] ?? Colors.black},
+        color: ${params["color"].shade500 ?? Colors.black},
         fontStyle: ${params["fontStyle"] ?? FontStyle.normal}
       ),
     )''';
