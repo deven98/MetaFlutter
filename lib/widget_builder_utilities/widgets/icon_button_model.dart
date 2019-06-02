@@ -6,7 +6,7 @@ import '../model_widget.dart';
 class IconButtonModel extends ModelWidget {
   IconButtonModel() {
     this.widgetType = WidgetType.IconButton;
-    this.nodeType = NodeType.SingleChild;
+    this.nodeType = NodeType.End;
     this.hasProperties = true;
     this.hasChildren = false;
     this.paramNameAndTypes = {
