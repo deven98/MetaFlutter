@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/align_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/aspect_ratio_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/center_model.dart';
@@ -26,6 +25,7 @@ import 'package:flutter_app_builder/widget_builder_utilities/widgets/transform_s
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/transform_translate_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/card_view_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/icon_button_model.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/widgets/chip_model.dart';
 
 /// Denotes the type of widget
 enum WidgetType {
@@ -54,7 +54,8 @@ enum WidgetType {
   PageView,
   CardView,
   IconButton,
-  RadioButton
+  RadioButton,
+  ChipView
 }
 
 /// Denotes if the widget can have zero, one or multiple children
@@ -147,6 +148,10 @@ ModelWidget getNewModelFromType(WidgetType type) {
     case WidgetType.RadioButton:
       return RadioModel();
       break;
+
+    case WidgetType.ChipView:
+      return ChipModel();
+      break;
     default:
       return null;
       break;
@@ -203,5 +208,4 @@ abstract class ModelWidget {
 
   /// Converts current widget to code and returns as string
   String toCode();
-
 }

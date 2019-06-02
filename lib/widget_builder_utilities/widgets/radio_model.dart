@@ -14,7 +14,9 @@ class RadioModel extends ModelWidget {
 
   @override
   Map getParamValuesMap() {
-    return null;
+    return {
+      
+    };
   }
 
   @override
@@ -24,6 +26,17 @@ class RadioModel extends ModelWidget {
       groupValue: 1,
       onChanged: (i){},
     );
+  }
+
+  @override
+  String toCode() {
+    return '''
+    Radio(
+      value: 1,
+      groupValue: 1,
+      onChanged: (i){},
+    );
+    ''';
   }
 
 }
