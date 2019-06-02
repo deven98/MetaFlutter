@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-var font = [FontInfo("Normal", FontStyle.normal),
-FontInfo("Italic", FontStyle.italic)];
-
+var font = [
+  FontInfo("Normal", FontStyle.normal),
+  FontInfo("Italic", FontStyle.italic)
+];
 
 class FontInfo {
   String name;
