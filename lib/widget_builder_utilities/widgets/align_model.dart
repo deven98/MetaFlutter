@@ -47,7 +47,7 @@ class AlignModel extends ModelWidget {
       child: ${children[0]?.toCode() ?? "Container()"},
       widthFactor: ${double.tryParse(params["widthFactor"].toString()) ?? null},
       heightFactor: ${double.tryParse(params["heightFactor"].toString()) ?? null},
-      alignment: ${params["alignment"] ?? "Alignment.center"},
+      alignment: Alignment.${params["alignment"].alignment ?? "center"},
     )''';
   }
 

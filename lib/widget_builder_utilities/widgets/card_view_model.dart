@@ -43,7 +43,7 @@ class CardViewModel extends ModelWidget {
     return '''Card(
       child: ${children[0]?.toCode() ?? 'Container()'},
       elevation: ${params["elevation"] ?? 2.0},
-      color: ${params["color"].shade500 ?? Colors.white},
+      color: ${params["color"]?.shade500 ?? Colors.white},
     )''';
   }
 

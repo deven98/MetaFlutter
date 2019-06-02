@@ -41,7 +41,7 @@ class FittedBoxModel extends ModelWidget {
   String toCode() {
     return '''FittedBox(
       child: ${children[0]?.toCode() ?? 'Container()'},
-      alignment: ${params["alignment"] ?? Alignment.center},
+      alignment: Alignment.${params["alignment"].alignment ?? 'center'},
       fit: ${params["fit"] ?? BoxFit.contain},
     )''';
   }

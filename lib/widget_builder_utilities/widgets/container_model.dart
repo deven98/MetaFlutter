@@ -51,9 +51,9 @@ class ContainerModel extends ModelWidget {
       child: ${children[0]?.toCode() ?? 'Container()'},
       width: ${double.tryParse(params["width"])},
       height: ${double.tryParse(params["height"])},
-      alignment: ${params["alignment"]},
+      alignment: Alignment.${params["alignment"]?.alignment ?? "center"},
       decoration: BoxDecoration(
-        color: ${params["color"].shade500},
+        color: ${params["color"]?.shade500},
       ),
     )''';
   }
