@@ -39,4 +39,13 @@ class TransformRotateModel extends ModelWidget {
       "originY": params["originY"],
     };
   }
+
+  @override
+  String toCode() {
+    return '''Transform.rotate(
+      child: ${children[0]?.toCode() ?? 'Container()'},
+      angle: ${double.tryParse(params["angle"]) ?? 0.0},
+      origin: Offset(${double.tryParse(params["originX"]) ?? 0.0}, ${double.tryParse(params["originY"]) ?? 0.0}),
+    )''';
+  }
 }

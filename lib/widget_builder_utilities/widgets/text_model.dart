@@ -14,11 +14,13 @@ class TextModel extends ModelWidget {
       "text": PropertyType.string,
       "fontSize": PropertyType.double,
       "color": PropertyType.color,
+      "fontStyle":PropertyType.fontStyle
     };
     this.params = {
       "text": "",
       "fontSize": "14.0",
       "color": Colors.black,
+      "fontStyle": FontStyle.normal
     };
   }
 
@@ -29,6 +31,7 @@ class TextModel extends ModelWidget {
       style: TextStyle(
         fontSize: double.tryParse(params["fontSize"]) ?? 14.0,
         color: params["color"] ?? Colors.black,
+        fontStyle: params["fontStyle"] ?? FontStyle.normal
       ),
     );
   }
@@ -39,6 +42,19 @@ class TextModel extends ModelWidget {
       "text": params["text"],
       "fontSize": params["fontSize"],
       "color": params["color"],
+      "fontStyle": params["fontStyle"]
     };
+  }
+
+  @override
+  String toCode() {
+    return '''Text(
+      '${params["text"] ?? ""}',
+      style: TextStyle(
+        fontSize: ${double.tryParse(params["fontSize"]) ?? 14.0},
+        color: ${params["color"] ?? Colors.black},
+        fontStyle: ${params["fontStyle"] ?? FontStyle.normal}
+      ),
+    )''';
   }
 }

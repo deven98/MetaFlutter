@@ -5,11 +5,12 @@ import 'package:flutter_app_builder/pages/tree_screen.dart';
 import 'package:flutter_app_builder/utils/color_utils.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/property.dart';
+import 'package:unicorndial/unicorndial.dart';
 
+import 'code_screen.dart';
 import 'home_screen.dart';
 
 class WidgetStructureScreen extends StatefulWidget {
-
   /// Root of the [ModelWidget] tree
   final ModelWidget root;
 
@@ -24,7 +25,6 @@ class WidgetStructureScreen extends StatefulWidget {
 }
 
 class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
-
   /// Root of the [ModelWidget] tree
   ModelWidget root;
 
@@ -45,19 +45,44 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
     return Scaffold(
       key: _scaffoldKey,
       floatingActionButton: root != null
-          ? FloatingActionButton.extended(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ResultScreen(
-                          root.toWidget(),
-                        ),
+          ? UnicornDialer(
+              backgroundColor: Color.fromRGBO(255, 255, 255, 0.6),
+              parentButtonBackground: Colors.blue,
+              orientation: UnicornOrientation.VERTICAL,
+              parentButton: Icon(Icons.done),
+              childButtons: [
+                UnicornButton(
+                  currentButton: FloatingActionButton(
+                    heroTag: "code",
+                    child: Icon(Icons.code),
+                    mini: true,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CodeScreen(root)));
+                    },
                   ),
-                );
-              },
-              label: Text("Build"),
-              icon: Icon(Icons.done),
+                  labelText: "Code",
+                  hasLabel: true,
+                ),
+                UnicornButton(
+                  currentButton: FloatingActionButton(
+                    heroTag: "build",
+                    mini: true,
+                    child: Icon(Icons.build),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ResultScreen(root.toWidget())));
+                    },
+                  ),
+                  labelText: "Build",
+                  hasLabel: true,
+                ),
+              ],
             )
           : null,
       body: currNode == null

@@ -31,4 +31,11 @@ class FlutterLogoModel extends ModelWidget {
       "size": params["size"]
     };
   }
+
+  @override
+  String toCode() {
+    return '''FlutterLogo(
+      size: ${double.tryParse(params["size"]) ?? 40.0},
+    )''';
+  }
 }

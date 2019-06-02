@@ -39,4 +39,13 @@ class TransformScaleModel extends ModelWidget {
       "originY": params["originY"],
     };
   }
+
+  @override
+  String toCode() {
+    return '''Transform.scale(
+      child: ${children[0]?.toCode() ?? 'Container()'},
+      scale: ${double.tryParse(params["scale"]) ?? 0.0},
+      origin: Offset(${double.tryParse(params["originX"]) ?? 0.0}, ${double.tryParse(params["originY"]) ?? 0.0}),
+    )''';
+  }
 }

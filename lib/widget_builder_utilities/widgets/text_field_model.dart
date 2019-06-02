@@ -34,4 +34,14 @@ class TextFieldModel extends ModelWidget {
       "hintText": params["hintText"],
     };
   }
+
+  @override
+  String toCode() {
+    return '''TextField(
+      decoration: InputDecoration(
+        hintText: '${params["hintText"] ?? ""}',
+        border: OutlineInputBorder(),
+      ),
+    )''';
+  }
 }

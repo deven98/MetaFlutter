@@ -36,4 +36,13 @@ class CenterModel extends ModelWidget {
       "heightFactor": params["heightFactor"],
     };
   }
+
+  @override
+  String toCode() {
+    return '''Center(
+      child: ${children[0]?.toCode() ?? 'Container()'},
+      widthFactor: ${double.tryParse(params["widthFactor"].toString())},
+      heightFactor: ${double.tryParse(params["heightFactor"].toString())},
+    )''';
+  }
 }

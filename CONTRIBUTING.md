@@ -5,7 +5,7 @@
 1) Add more widgets to app
 2) Add app on-boarding 
 3) Improve UI
-4) Add get-layout-code functionality
+4) Add get-layout-code functionality ✔️
 5) Add Save code functionality
 6) Add tests
 

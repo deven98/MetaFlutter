@@ -23,4 +23,11 @@ class SafeAreaModel extends ModelWidget {
   Map getParamValuesMap() {
     return {};
   }
+
+  @override
+  String toCode() {
+    return  '''SafeArea(
+      child: ${children[0]?.toCode() ?? 'Container()'},
+    )''';
+  }
 }

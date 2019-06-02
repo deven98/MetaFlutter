@@ -34,4 +34,12 @@ class IconModel extends ModelWidget {
       "size": params["size"],
     };
   }
+
+  @override
+  String toCode() {
+    return '''Icon(
+      ${params["icon"] ?? Icons.help_outline},
+      size: ${double.tryParse(params["size"]) ?? 20.0},
+    )''';
+  }
 }

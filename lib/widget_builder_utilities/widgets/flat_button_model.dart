@@ -30,4 +30,13 @@ class FlatButtonModel extends ModelWidget {
       "color": params["color"],
     };
   }
+
+  @override
+  String toCode() {
+    return '''FlatButton(
+      child: ${children[0]?.toCode() ?? 'Container()'},
+      onPressed: () {},
+      color: ${params["color"]},
+    )''';
+  }
 }

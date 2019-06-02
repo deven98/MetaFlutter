@@ -39,4 +39,17 @@ class ListViewModel extends ModelWidget {
       "shrinkWrap": params["shrinkWrap"],
     };
   }
+
+  @override
+  String toCode() {
+    return '''ListView(
+      children: ${children.isNotEmpty
+          ? children.values.map((widget) {
+        return widget.toCode();
+      }).toList()
+          : []},
+      physics: ${params["physics"] ?? 'AlwaysScrollableScrollPhysics'}(),
+      shrinkWrap: ${params["shrinkWrap"] ?? false},
+    )''';
+  }
 }

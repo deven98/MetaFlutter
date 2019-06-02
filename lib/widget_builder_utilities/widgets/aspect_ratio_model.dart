@@ -32,4 +32,14 @@ class AspectRatioModel extends ModelWidget {
       "aspectRatio": params["aspectRatio"],
     };
   }
+
+  @override
+  String toCode() {
+    return '''AspectRatio(
+      child: ${children[0]?.toCode() ?? 'Container()'},
+      aspectRatio: ${double.tryParse(params["aspectRatio"]) ?? 1.0},
+    )''';
+  }
+
+
 }

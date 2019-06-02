@@ -46,4 +46,17 @@ class PaddingModel extends ModelWidget {
       "bottom": params["bottom"],
     };
   }
+
+  @override
+  String toCode() {
+    return '''Padding(
+      child: ${children[0]?.toCode() ?? 'Container()'},
+      padding: EdgeInsets.fromLTRB(
+        ${double.tryParse(params["left"]) ?? 0.0},
+        ${double.tryParse(params["top"]) ?? 0.0},
+        ${double.tryParse(params["right"]) ?? 0.0},
+        ${double.tryParse(params["bottom"]) ?? 0.0},
+      ),
+    )''';
+  }
 }
