@@ -52,9 +52,9 @@ class ContainerModel extends ModelWidget {
         "${paramToCode(paramName: "width", currentValue: double.tryParse(params["width"]), type: PropertyType.double)}"
         "${paramToCode(paramName: "height", currentValue: double.tryParse(params["height"]), type: PropertyType.double)}"
         "${paramToCode(paramName: "alignment", type: PropertyType.alignment, currentValue: params["alignment"])}"
-        "    decoration: BoxDecoration("
+        "    decoration: BoxDecoration(\n"
             "${paramToCode(paramName: "color", type: PropertyType.color, currentValue: params["color"])}"
-        "),"
+        "    ),"
         "\n    child: ${children[0]?.toCode() ?? 'Container()'},"
         "\n  )";
   }
