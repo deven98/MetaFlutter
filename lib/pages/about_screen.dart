@@ -100,5 +100,4 @@ class _AboutScreenState extends State<AboutScreen> {
       throw 'Could not launch $url';
     }
   }
-
 }

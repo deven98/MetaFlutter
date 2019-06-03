@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_builder/utils/code_utils.dart';
 
 import '../model_widget.dart';
 import '../property.dart';
@@ -24,8 +25,8 @@ class ListViewModel extends ModelWidget {
     return ListView(
       children: children.isNotEmpty
           ? children.values.map((widget) {
-        return widget.toWidget();
-      }).toList()
+              return widget.toWidget();
+            }).toList()
           : [],
       physics: params["physics"] ?? AlwaysScrollableScrollPhysics(),
       shrinkWrap: params["shrinkWrap"] ?? false,
@@ -42,14 +43,12 @@ class ListViewModel extends ModelWidget {
 
   @override
   String toCode() {
-    return '''ListView(
-      children: ${children.isNotEmpty
-          ? children.values.map((widget) {
-        return widget.toCode();
-      }).toList()
-          : []},
-      physics: ${params["physics"] ?? 'AlwaysScrollableScrollPhysics'}(),
-      shrinkWrap: ${params["shrinkWrap"] ?? false},
-    )''';
+    return "ListView(\n"
+        "${paramToCode(paramName: "shrinkWrap", currentValue: params["shrinkWrap"], type: PropertyType.boolean)}"
+        "${paramToCode(paramName: "physics", type: PropertyType.scrollPhysics, currentValue: params["physics"])}"
+        '''    children: ${children.isNotEmpty ? children.values.map((widget) {
+            return widget.toCode();
+          }).toList() : []},'''
+        "\n  )";
   }
 }

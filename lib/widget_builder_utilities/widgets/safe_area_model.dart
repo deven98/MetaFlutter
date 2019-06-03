@@ -5,7 +5,7 @@ import '../property.dart';
 
 /// Provides a model for recreating the [SafeArea] widget
 class SafeAreaModel extends ModelWidget {
-  SafeAreaModel(){
+  SafeAreaModel() {
     this.widgetType = WidgetType.SafeArea;
     this.nodeType = NodeType.SingleChild;
     this.hasProperties = false;
@@ -26,7 +26,7 @@ class SafeAreaModel extends ModelWidget {
 
   @override
   String toCode() {
-    return  '''SafeArea(
+    return '''SafeArea(
       child: ${children[0]?.toCode() ?? 'Container()'},
     )''';
   }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_builder/utils/code_utils.dart';
 
 import '../model_widget.dart';
 import '../property.dart';
 
 class CardViewModel extends ModelWidget {
-
-  CardViewModel(){
+  CardViewModel() {
     this.widgetType = WidgetType.CardView;
     this.nodeType = NodeType.SingleChild;
     this.hasProperties = true;
@@ -23,10 +23,7 @@ class CardViewModel extends ModelWidget {
 
   @override
   Map getParamValuesMap() {
-    return {
-        "elevation" : params["elevation"],
-        "color" : params["color"]
-    };
+    return {"elevation": params["elevation"], "color": params["color"]};
   }
 
   @override
@@ -40,12 +37,10 @@ class CardViewModel extends ModelWidget {
 
   @override
   String toCode() {
-    return '''Card(
-      child: ${children[0]?.toCode() ?? 'Container()'},
-      elevation: ${params["elevation"] ?? 2.0},
-      color: ${params["color"]?.shade500 ?? Colors.white},
-    )''';
+    return "Card(\n"
+        "${paramToCode(paramName: "elevation", type: PropertyType.double, currentValue: params["elevation"])}"
+        "${paramToCode(paramName: "color", type: PropertyType.color, currentValue: params["color"])}"
+        "    child: ${children[0]?.toCode() ?? 'Container()'},"
+        "\n  )";
   }
-
-
 }

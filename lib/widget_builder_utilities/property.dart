@@ -61,8 +61,8 @@ class _PropertyState extends State<Property> {
           value: widget.currentValue,
         );
         break;
-        case PropertyType.fontStyle:
-          return CustomDropdownButton(
+      case PropertyType.fontStyle:
+        return CustomDropdownButton(
           items: font.map((data) {
             return DropdownMenuItem(
               child: Text(data.name),
@@ -124,7 +124,7 @@ class _PropertyState extends State<Property> {
       case PropertyType.crossAxisAlignment:
         return CustomDropdownButton(
           items: CrossAxisAlignment.values.map(
-                (value) {
+            (value) {
               return DropdownMenuItem(
                 child: Text(value.toString().split(".")[1]),
                 value: value,
@@ -171,7 +171,7 @@ class _PropertyState extends State<Property> {
             (value) {
               return DropdownMenuItem(
                 child: Text(value.name),
-                value: value,
+                value: value.alignment,
               );
             },
           ).toList(),
@@ -210,7 +210,7 @@ class _PropertyState extends State<Property> {
       case PropertyType.scrollPhysics:
         return CustomDropdownButton(
           items: scrollPhysicsTypes.map(
-                (ScrollPhysicsInfo value) {
+            (ScrollPhysicsInfo value) {
               return DropdownMenuItem(
                 child: Text(value.name),
                 value: value.physics,
@@ -224,7 +224,7 @@ class _PropertyState extends State<Property> {
       case PropertyType.axis:
         return CustomDropdownButton(
           items: [Axis.horizontal, Axis.vertical].map(
-                (value) {
+            (value) {
               return DropdownMenuItem(
                 child: Text(value.toString()),
                 value: value,
@@ -266,6 +266,7 @@ class CustomDropdownButton extends StatelessWidget {
             onChanged: onChanged,
             value: value,
             isExpanded: true,
+            hint: Text("Select Value"),
           ),
         ),
       ),

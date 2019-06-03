@@ -190,5 +190,4 @@ abstract class ModelWidget {
 
   /// Converts current widget to code and returns as string
   String toCode();
-
 }

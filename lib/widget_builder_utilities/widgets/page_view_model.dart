@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_builder/utils/code_utils.dart';
 
 import '../model_widget.dart';
 import '../property.dart';
@@ -24,8 +25,8 @@ class PageViewModel extends ModelWidget {
     return PageView(
       children: children.isNotEmpty
           ? children.values.map((widget) {
-        return widget.toWidget();
-      }).toList()
+              return widget.toWidget();
+            }).toList()
           : [],
       physics: params["physics"] ?? AlwaysScrollableScrollPhysics(),
       scrollDirection: params["scrollDirection"] ?? Axis.horizontal,
@@ -42,14 +43,12 @@ class PageViewModel extends ModelWidget {
 
   @override
   String toCode() {
-    return '''PageView(
-      children: ${children.isNotEmpty
-          ? children.values.map((widget) {
-        return widget.toCode();
-      }).toList()
-          : []},
-      physics: ${params["physics"] ?? 'AlwaysScrollableScrollPhysics'}(),
-      scrollDirection: ${params["scrollDirection"] ?? Axis.horizontal},
-    )''';
+    return "PageView(\n"
+        "${paramToCode(paramName: "physics", type: PropertyType.scrollPhysics, currentValue: params["physics"])}"
+        "${paramToCode(paramName: "scrollDirection", type: PropertyType.axis, currentValue: params["scrollDirection"])}"
+        '''    children: ${children.isNotEmpty ? children.values.map((widget) {
+            return widget.toCode();
+          }).toList() : []},'''
+        "\n  )";
   }
 }

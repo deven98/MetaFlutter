@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_builder/utils/code_utils.dart';
 
 import '../model_widget.dart';
 import '../property.dart';
@@ -47,14 +48,14 @@ class ContainerModel extends ModelWidget {
 
   @override
   String toCode() {
-    return '''Container(
-      child: ${children[0]?.toCode() ?? 'Container()'},
-      width: ${double.tryParse(params["width"])},
-      height: ${double.tryParse(params["height"])},
-      alignment: Alignment.${params["alignment"]?.alignment ?? "center"},
-      decoration: BoxDecoration(
-        color: ${params["color"]?.shade500},
-      ),
-    )''';
+    return "Container(\n"
+        "${paramToCode(paramName: "width", currentValue: double.tryParse(params["width"]), type: PropertyType.double)}"
+        "${paramToCode(paramName: "height", currentValue: double.tryParse(params["height"]), type: PropertyType.double)}"
+        "${paramToCode(paramName: "alignment", type: PropertyType.alignment, currentValue: params["alignment"])}"
+        "    decoration: BoxDecoration("
+            "${paramToCode(paramName: "color", type: PropertyType.color, currentValue: params["color"])}"
+        "),"
+        "\n    child: ${children[0]?.toCode() ?? 'Container()'},"
+        "\n  )";
   }
 }

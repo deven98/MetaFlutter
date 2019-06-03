@@ -82,10 +82,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             child: FlatButton(
               color: Colors.blue,
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AboutScreen()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AboutScreen()));
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
