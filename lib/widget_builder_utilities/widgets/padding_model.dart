@@ -50,14 +50,14 @@ class PaddingModel extends ModelWidget {
 
   @override
   String toCode() {
-    return '''Padding(
-      padding: EdgeInsets.fromLTRB(
-        ${paramToCode(isNamed: false, type: PropertyType.double, currentValue: params["left"], defaultValue: "0.0")}
-        ${paramToCode(isNamed: false, type: PropertyType.double, currentValue: params["top"], defaultValue: "0.0")}
-        ${paramToCode(isNamed: false, type: PropertyType.double, currentValue: params["right"], defaultValue: "0.0")}
-        ${paramToCode(isNamed: false, type: PropertyType.double, currentValue: params["bottom"], defaultValue: "0.0")}
-      ),
-      child: ${children[0]?.toCode() ?? 'Container()'},
-    )''';
+    return "Padding(\n"
+      "  padding: EdgeInsets.fromLTRB(\n"
+        "${paramToCode(isNamed: false, type: PropertyType.double, currentValue: params["left"], defaultValue: "0.0")}"
+        "${paramToCode(isNamed: false, type: PropertyType.double, currentValue: params["top"], defaultValue: "0.0")}"
+        "${paramToCode(isNamed: false, type: PropertyType.double, currentValue: params["right"], defaultValue: "0.0")}"
+        "${paramToCode(isNamed: false, type: PropertyType.double, currentValue: params["bottom"], defaultValue: "0.0")}"
+      "  ),\n"
+      "  child: ${children[0]?.toCode() ?? 'Container()'},"
+    "\n)";
   }
 }
