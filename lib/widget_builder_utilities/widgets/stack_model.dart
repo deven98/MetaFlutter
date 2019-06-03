@@ -33,13 +33,11 @@ class StackModel extends ModelWidget {
   @override
   String toCode() {
     return '''Stack(
-      children: ${children.isNotEmpty
-          ? children.values.map(
+      children: ${children.isNotEmpty ? children.values.map(
             (widget) {
-          return widget.toCode();
-        },
-      ).toList()
-          : []},
+              return widget.toCode();
+            },
+          ).toList() : []},
     )''';
   }
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_builder/utils/code_utils.dart';
 
 import '../model_widget.dart';
 import '../property.dart';
 
 /// Provides a model for recreating the [Align] widget
 class AlignModel extends ModelWidget {
-
-  AlignModel(){
+  AlignModel() {
     this.widgetType = WidgetType.Align;
     this.nodeType = NodeType.SingleChild;
     this.hasProperties = true;
@@ -43,12 +43,11 @@ class AlignModel extends ModelWidget {
 
   @override
   String toCode() {
-    return '''Align(
-      child: ${children[0]?.toCode() ?? "Container()"},
-      widthFactor: ${double.tryParse(params["widthFactor"].toString()) ?? null},
-      heightFactor: ${double.tryParse(params["heightFactor"].toString()) ?? null},
-      alignment: ${params["alignment"] ?? "Alignment.center"},
-    )''';
+    return "Align(\n"
+        "${paramToCode(paramName: "widthFactor", type: PropertyType.double, currentValue: double.tryParse(params["widthFactor"].toString()))}"
+        "${paramToCode(paramName: "heightFactor", type: PropertyType.double, currentValue: double.tryParse(params["heightFactor"].toString()))}"
+        "${paramToCode(paramName: "alignment", type: PropertyType.alignment, currentValue: params["alignment"])}"
+        "    child: ${children[0]?.toCode() ?? "Container()"},"
+        "\n  )";
   }
-
 }

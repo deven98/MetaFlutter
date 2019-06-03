@@ -24,7 +24,8 @@ class TransformTranslateModel extends ModelWidget {
   Widget toWidget() {
     return Transform.translate(
       child: children[0]?.toWidget() ?? Container(),
-      offset: Offset(double.tryParse(params["translationX"]) ?? 0.0, double.tryParse(params["translationY"]) ?? 0.0),
+      offset: Offset(double.tryParse(params["translationX"]) ?? 0.0,
+          double.tryParse(params["translationY"]) ?? 0.0),
     );
   }
 

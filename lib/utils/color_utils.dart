@@ -19,8 +19,7 @@ final backgroundColors = [
 ];
 
 ColorPair getColorPair(ModelWidget widget) {
-  switch(widget.nodeType) {
-
+  switch (widget.nodeType) {
     case NodeType.SingleChild:
       return backgroundColors[4];
       break;

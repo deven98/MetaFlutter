@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_builder/utils/code_utils.dart';
 
 import '../model_widget.dart';
 import '../property.dart';
@@ -46,14 +47,14 @@ class GridViewModel extends ModelWidget {
 
   @override
   String toCode() {
-    return '''GridView(
-      children: ${children.isNotEmpty ? children.values.map((widget) {
-            return widget.toCode();
-          }).toList() : []},
-      shrinkWrap: ${params["shrinkWrap"] ?? false},
-      physics: ${params["physics"] ?? 'AlwaysScrollableScrollPhysics'}(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    return "GridView(\n"
+        "${paramToCode(paramName: "shrinkWrap", currentValue: params["shrinkWrap"], type: PropertyType.boolean)}"
+        "${paramToCode(paramName: "physics", type: PropertyType.scrollPhysics, currentValue: params["physics"])}"
+        '''gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: ${params["crossAxisCount"] ?? 2}),
-    )''';
+          children: ${children.isNotEmpty ? children.values.map((widget) {
+            return widget.toCode();
+          }).toList() : []},'''
+        "\n  )";
   }
 }

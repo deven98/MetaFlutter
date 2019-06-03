@@ -5,7 +5,6 @@ import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
 
 /// Displays the widget tree of the current selection of widgets of the user
 class TreeScreen extends StatefulWidget {
-
   /// Root widget of the tree
   final ModelWidget rootWidget;
 
@@ -16,7 +15,6 @@ class TreeScreen extends StatefulWidget {
 }
 
 class _TreeScreenState extends State<TreeScreen> {
-
   /// Stores a list of widgets at every level
   List<List<ModelWidget>> widgets = [];
 
@@ -50,7 +48,10 @@ class _TreeScreenState extends State<TreeScreen> {
               child: ListTile(
                 title: Text("Click here to navigate to widget"),
                 trailing: InkWell(
-                  child: Text("Go", style: TextStyle(color: Colors.blue),),
+                  child: Text(
+                    "Go",
+                    style: TextStyle(color: Colors.blue),
+                  ),
                   onTap: () {
                     Navigator.pushAndRemoveUntil(
                       context,

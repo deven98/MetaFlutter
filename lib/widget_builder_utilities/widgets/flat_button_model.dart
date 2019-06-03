@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_builder/utils/code_utils.dart';
 
 import '../model_widget.dart';
 import '../property.dart';
@@ -33,10 +34,10 @@ class FlatButtonModel extends ModelWidget {
 
   @override
   String toCode() {
-    return '''FlatButton(
-      child: ${children[0]?.toCode() ?? 'Container()'},
-      onPressed: () {},
-      color: ${params["color"]},
-    )''';
+    return "FlatButton(\n"
+        "    onPressed: () {},\n"
+        "${paramToCode(paramName: "color", type: PropertyType.color, currentValue: params["color"])}"
+        "    child: ${children[0]?.toCode() ?? 'Container()'},"
+        "\n  )";
   }
 }
