@@ -60,7 +60,7 @@ enum WidgetType {
   RadioButton,
   ChipView,
   Slider,
-  SwitchBox,
+  Switch,
   CheckBox
 }
 
@@ -158,7 +158,7 @@ ModelWidget getNewModelFromType(WidgetType type) {
     case WidgetType.Slider:
       return SliderModel();
       break;
-    case WidgetType.SwitchBox:
+    case WidgetType.Switch:
       return SwitchModel();
       break;
     case WidgetType.CheckBox:

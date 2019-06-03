@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../model_widget.dart';
-import '../property.dart';
+
 
 class RadioModel extends ModelWidget {
 
