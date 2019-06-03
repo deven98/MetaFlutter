@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_app_builder/utils/code_utils.dart';
 import '../model_widget.dart';
 import '../property.dart';
 
@@ -27,12 +27,12 @@ class ChipModel extends ModelWidget {
 
   @override
   String toCode() {
-    return '''
-    Chip(
-      label: Text(params["label"]),
-      elevation: double.parse(params["elevation"]) ?? 2.0,
-      backgroundColor: params["backgroundColor"] ?? Colors.blue,
-    );''';
+    return 
+    "Chip(\n"
+      "${paramToCode(paramName: "label", type: PropertyType.string, currentValue: params["label"])}"
+      "${paramToCode(paramName: "elevation", type: PropertyType.double, currentValue: params["elevation"])}"
+      "${paramToCode(paramName: "backgroundColor", type: PropertyType.color, currentValue: params["backgroundColor"])}"
+    " )";
   }
 
   @override
