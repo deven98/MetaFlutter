@@ -39,10 +39,10 @@ class TextFieldModel extends ModelWidget {
   @override
   String toCode() {
     return "TextField(\n"
-        "decoration: InputDecoration("
+        "    decoration: InputDecoration(\n"
         "${paramToCode(paramName: "hintText", type: PropertyType.string, currentValue: params["hintText"])}"
-        "  border: OutlineInputBorder(),"
-        "),\n"
+        "    border: OutlineInputBorder(),\n"
+        "    ),"
         "\n  )";
   }
 }
