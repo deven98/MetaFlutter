@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/align_model.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/widgets/aspect_ratio_model.dart';
@@ -140,6 +142,37 @@ ModelWidget getNewModelFromType(WidgetType type) {
   }
 }
 
+/// Creates a new model for each [WidgetType]
+WidgetType getModelTypeFromString(String widgetType) {
+  for (WidgetType type in WidgetType.values) {
+    if (type.toString() == widgetType) {
+      return type;
+    }
+  }
+  return null;
+}
+
+ModelWidget createWidgetFromJson(String jsonString) {
+  Map decodedJson = json.decode(jsonString);
+
+  WidgetType type = getModelTypeFromString(decodedJson["widgetType"]);
+
+  Map<int, ModelWidget> children = {};
+
+  for(int i = 0; i < decodedJson["children"].length; i++) {
+    children[i] = createWidgetFromJson(decodedJson["children"][i]);
+  }
+
+  ModelWidget widget = getNewModelFromType(type)
+    ..paramNameAndTypes = json.decode(decodedJson["paramNameAndTypes"])
+    ..params = json.decode(decodedJson["params"])
+    ..hasProperties = bool.fromEnvironment(decodedJson["hasProperties"])
+    ..hasChildren = bool.fromEnvironment(decodedJson["hasChildren"])
+    ..children = children;
+
+  return widget;
+}
+
 /// Model Widget class
 abstract class ModelWidget {
   /// Type of widget ([Text], [Center], [Column], etc)
@@ -190,4 +223,22 @@ abstract class ModelWidget {
 
   /// Converts current widget to code and returns as string
   String toCode();
+
+  /// Coverts current widget to JSON for saving into SQLite
+  Map<String, dynamic> toJson() {
+    return {
+      "widgetType": widgetType.toString(),
+      "paramNameAndTypes": json.encode(paramNameAndTypes.map((key, value) {
+        return MapEntry(key, value.toString());
+      })),
+      "params": json.encode(params.map((key, value) {
+        return MapEntry(key, value.toString());
+      })),
+      "hasProperties": hasProperties.toString(),
+      "hasChildren": hasChildren.toString(),
+      "children": children.values.map((child) {
+        return json.encode(child.toJson());
+      }).toList(),
+    };
+  }
 }

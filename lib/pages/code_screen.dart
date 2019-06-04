@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_builder/components/syntax_highlighter.dart';
@@ -20,6 +22,7 @@ class _CodeScreenState extends State<CodeScreen> {
   void initState() {
     super.initState();
     resultCode = widget.root.toCode();
+    print(createWidgetFromJson(json.encode(widget.root.toJson())));
   }
 
   @override
