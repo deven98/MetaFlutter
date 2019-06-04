@@ -22,7 +22,6 @@ class _CodeScreenState extends State<CodeScreen> {
   void initState() {
     super.initState();
     resultCode = widget.root.toCode();
-    print(createWidgetFromJson(json.encode(widget.root.toJson())));
   }
 
   @override

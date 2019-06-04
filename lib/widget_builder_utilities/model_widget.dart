@@ -167,8 +167,8 @@ ModelWidget createWidgetFromJson(String jsonString) {
     ..paramNameAndTypes = json.decode(decodedJson["paramNameAndTypes"])
     ..params = json.decode(decodedJson["params"])
     ..hasProperties = bool.fromEnvironment(decodedJson["hasProperties"])
-    ..hasChildren = bool.fromEnvironment(decodedJson["hasChildren"])
-    ..children = children;
+    ..hasChildren = bool.fromEnvironment(decodedJson["hasChildren"]);
+    widget.children = children.map((key,value) {return MapEntry(key, value..parent = widget);});
 
   return widget;
 }
