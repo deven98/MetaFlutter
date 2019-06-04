@@ -28,6 +28,16 @@ enum PropertyType {
   fontStyle
 }
 
+/// Returns [PropertyType] from equivalent string
+PropertyType propertyTypeFromString(String typeString) {
+  for (PropertyType type in PropertyType.values) {
+    if (type.toString() == typeString) {
+      return type;
+    }
+  }
+  return null;
+}
+
 /// The property widget displays an input widget for a certain type of property
 /// For the [PropertyType.widget], it displays a button which allows the user to create a separate widget
 class Property extends StatefulWidget {
