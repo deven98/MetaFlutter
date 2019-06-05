@@ -25,7 +25,8 @@ enum PropertyType {
   boolean,
   scrollPhysics,
   axis,
-  fontStyle
+  fontStyle,
+ 
 }
 
 /// The property widget displays an input widget for a certain type of property
