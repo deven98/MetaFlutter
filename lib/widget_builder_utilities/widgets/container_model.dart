@@ -15,7 +15,8 @@ class ContainerModel extends ModelWidget {
       "width": PropertyType.double,
       "height": PropertyType.double,
       "color": PropertyType.color,
-      "alignment": PropertyType.alignment
+      "alignment": PropertyType.alignment,
+      "radius":PropertyType.double,
     };
     this.params = {
       "width": "0.0",
@@ -32,6 +33,7 @@ class ContainerModel extends ModelWidget {
       alignment: params["alignment"],
       decoration: BoxDecoration(
         color: params["color"],
+        borderRadius: BorderRadius.all(new Radius.circular(params["radius"])),
       ),
     );
   }
@@ -43,6 +45,7 @@ class ContainerModel extends ModelWidget {
       "height": params["height"],
       "color": params["color"],
       "alignment": params["alignment"],
+      "radius":params["radius"],
     };
   }
 
