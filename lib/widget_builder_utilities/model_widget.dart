@@ -159,7 +159,7 @@ abstract class ModelWidget {
   /// Stores the names of all parameters and input types
   Map paramNameAndTypes = {};
 
-  /// The parameter values of the widget
+  /// The parametelibr values of the widget
   /// Key is the parameter name and value is the value
   Map params = {};
 

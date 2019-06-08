@@ -5,6 +5,7 @@ import 'about_screen.dart';
 
 /// First page to see after splash screen.
 /// Keep this page as entry for main program, saved templates, etc.
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();

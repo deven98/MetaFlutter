@@ -26,7 +26,7 @@ enum PropertyType {
   scrollPhysics,
   axis,
   fontStyle,
- 
+  radius,
 }
 
 /// The property widget displays an input widget for a certain type of property
@@ -38,7 +38,7 @@ class Property extends StatefulWidget {
   final WidgetType widgetType;
 
   Property(this.type, this.onValueChanged,
-      {this.currentValue, this.widgetType});
+      {this.currentValue, this.widgetType,});
 
   @override
   _PropertyState createState() => _PropertyState();

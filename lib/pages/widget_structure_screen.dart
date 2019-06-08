@@ -359,38 +359,76 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
   /// Gets all attributes of a given [ModelWidget]
   Widget _getAttributes(ModelWidget widget) {
     Map map = widget.getParamValuesMap();
-    return Column(
-      children: map.entries.map((entry) {
-        return Row(
-          children: <Widget>[
-            Expanded(
-              child: Text(
-                entry.key,
-                style: TextStyle(fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              flex: 3,
-            ),
-            Expanded(
-              flex: 5,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
-                child: Property(
-                  widget.paramNameAndTypes[entry.key],
-                  (value) {
-                    setState(() {
-                      widget.params[entry.key] = value;
-                    });
-                  },
-                  currentValue: map[entry.key],
+
+    return map.length>4 ? Container(
+      height: 320,
+      child: ListView(
+        children:<Widget> [
+          Column(
+          children: map.entries.map((entry) {
+            return Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    entry.key,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  flex: 3,
                 ),
+                Expanded(
+                  flex: 5,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
+                    child: Property(
+                      widget.paramNameAndTypes[entry.key],
+                      (value) {
+                        setState(() {
+                          widget.params[entry.key] = value;
+                        });
+                      },
+                      currentValue: map[entry.key],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }).toList(),
+        ),]),
+    ): Column(
+    children: map.entries.map((entry) {
+      return Row(
+        children: <Widget>[
+          Expanded(
+            child: Text(
+              entry.key,
+              style: TextStyle(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            flex: 3,
+          ),
+          Expanded(
+            flex: 5,
+            child: Padding(
+              padding:
+              const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
+              child: Property(
+                widget.paramNameAndTypes[entry.key],
+                    (value) {
+                  setState(() {
+                    widget.params[entry.key] = value;
+                  });
+                },
+                currentValue: map[entry.key],
               ),
             ),
-          ],
-        );
-      }).toList(),
+          ),
+        ],
+      );
+    }).toList(),
     );
+
   }
 
   /// Dialog to delete the complete layout from root

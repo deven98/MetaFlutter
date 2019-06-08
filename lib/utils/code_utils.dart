@@ -4,12 +4,14 @@ import 'package:flutter_app_builder/widget_builder_utilities/property_helpers/co
 
 /// Converts parameters to string values for converting to code
 String paramToCode(
-    {String paramName,
+    {
+      String paramName,
     @required PropertyType type,
     currentValue,
     String defaultValue,
-    bool isNamed = true}) {
-
+    bool isNamed = true
+    }) {
+  
   String result = "";
 
   if (isNamed) result = "$paramName: ";
@@ -69,7 +71,14 @@ String paramToCode(
     case PropertyType.fontStyle:
       result = result + currentValue.toString();
       break;
+    case PropertyType.radius:
+      result = result + currentValue.toString();
+      break;
   }
 
   return "    " + result + ",\n";
+
 }
+
+
+
