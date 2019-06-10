@@ -179,8 +179,6 @@ E codeToModel<E extends ModelWidget>(String code) {
         model.params[key] = FontStyle.values.firstWhere((f) => params[key].contains("$f"));
         break;
     }
-    return model;
   });
-
-
+    return model;
 }
