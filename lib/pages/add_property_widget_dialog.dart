@@ -187,9 +187,7 @@ class _AddPropertyWidgetDialogState extends State<AddPropertyWidgetDialog> {
                   setState(() {
                     widget.params[entry.key] = value;
                   });
-                }, currentValue: map[entry.key],
-                ),
-
+                }, currentValue: map[entry.key],),
               ),
             ),
           ],
