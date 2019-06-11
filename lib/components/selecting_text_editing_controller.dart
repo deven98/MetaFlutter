@@ -6,8 +6,7 @@ class SelectingTextEditingController extends TextEditingController {
     if (text != null) setTextAndPosition(text);
   }
 
-  void setTextAndPosition(
-      String newText, {int caretPosition}) {
+  void setTextAndPosition(String newText, {int caretPosition}) {
     int offset = caretPosition != null ? caretPosition : newText.length;
     value = value.copyWith(
         text: newText,
