@@ -49,6 +49,7 @@ class ContainerModel extends ModelWidget {
 
   @override
   String toCode() {
+    //if color is null the decoration is empty and we don't need it
     String decoration = (params["color"] != null ?
     "    decoration: BoxDecoration(\n"
         "${paramToCode(paramName: "color",
