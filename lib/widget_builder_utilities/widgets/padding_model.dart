@@ -16,6 +16,7 @@ class PaddingModel extends ModelWidget {
       "top": PropertyType.double,
       "right": PropertyType.double,
       "bottom": PropertyType.double,
+      "child": PropertyType.widget
     };
     this.params = {
       "left": "0.0",

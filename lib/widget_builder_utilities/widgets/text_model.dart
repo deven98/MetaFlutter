@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/utils/code_utils.dart';
+import 'package:strings/strings.dart';
 
 import '../model_widget.dart';
 import '../property.dart';
-
 /// Provides a model for recreating the [Text] widget
 class TextModel extends ModelWidget {
   TextModel() {
@@ -28,7 +28,7 @@ class TextModel extends ModelWidget {
   @override
   Widget toWidget() {
     return Text(
-      params["text"] ?? "",
+      escape(params["text"]) ?? "",
       style: TextStyle(
           fontSize: double.tryParse(params["fontSize"]) ?? 14.0,
           color: params["color"] ?? Colors.black,

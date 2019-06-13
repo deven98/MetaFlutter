@@ -14,7 +14,8 @@ class AlignModel extends ModelWidget {
     this.paramNameAndTypes = {
       "widthFactor": PropertyType.double,
       "heightFactor": PropertyType.double,
-      "alignment": PropertyType.alignment
+      "alignment": PropertyType.alignment,
+      "child": PropertyType.widget
     };
     this.params = {
       "widthFactor": "100.0",

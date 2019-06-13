@@ -15,7 +15,8 @@ class ContainerModel extends ModelWidget {
       "width": PropertyType.double,
       "height": PropertyType.double,
       "color": PropertyType.color,
-      "alignment": PropertyType.alignment
+      "alignment": PropertyType.alignment,
+      "child": PropertyType.widget
     };
     this.params = {
       "width": "0.0",
@@ -48,13 +49,21 @@ class ContainerModel extends ModelWidget {
 
   @override
   String toCode() {
+    String decoration = (params["color"] != null ?
+    "    decoration: BoxDecoration(\n"
+        "${paramToCode(paramName: "color",
+        type: PropertyType.color,
+        currentValue: params["color"])}"
+        "    ),"
+        :
+    ""
+    );
+
     return "Container(\n"
         "${paramToCode(paramName: "width", currentValue: double.tryParse(params["width"]), type: PropertyType.double)}"
         "${paramToCode(paramName: "height", currentValue: double.tryParse(params["height"]), type: PropertyType.double)}"
         "${paramToCode(paramName: "alignment", type: PropertyType.alignment, currentValue: params["alignment"])}"
-        "    decoration: BoxDecoration(\n"
-            "${paramToCode(paramName: "color", type: PropertyType.color, currentValue: params["color"])}"
-        "    ),"
+        "$decoration"
         "\n    child: ${children[0]?.toCode() ?? 'Container()'},"
         "\n  )";
   }

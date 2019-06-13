@@ -13,6 +13,7 @@ class CardViewModel extends ModelWidget {
     this.paramNameAndTypes = {
       "elevation": PropertyType.double,
       "color": PropertyType.color,
+      "child": PropertyType.widget
     };
 
     this.params = {

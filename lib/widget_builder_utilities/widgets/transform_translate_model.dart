@@ -13,6 +13,7 @@ class TransformTranslateModel extends ModelWidget {
     this.paramNameAndTypes = {
       "translationX": PropertyType.double,
       "translationY": PropertyType.double,
+      "child": PropertyType.widget
     };
     this.params = {
       "translationX": "0.0",

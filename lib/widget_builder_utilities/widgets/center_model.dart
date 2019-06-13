@@ -14,6 +14,7 @@ class CenterModel extends ModelWidget {
     this.paramNameAndTypes = {
       "widthFactor": PropertyType.double,
       "heightFactor": PropertyType.double,
+      "child": PropertyType.widget
     };
     this.params = {
       "widthFactor": "100.0",

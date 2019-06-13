@@ -10,6 +10,9 @@ class SafeAreaModel extends ModelWidget {
     this.nodeType = NodeType.SingleChild;
     this.hasProperties = false;
     this.hasChildren = true;
+    this.paramNameAndTypes = {
+      "child": PropertyType.widget
+    };
   }
 
   @override
