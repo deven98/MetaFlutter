@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_builder/components/selecting_text_editing_controller.dart';
 import 'package:flutter_app_builder/pages/add_property_widget_dialog.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/property_helpers/font_style_helper.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/property_helpers/scroll_physics_helper.dart';
 
 import 'model_widget.dart';
-import 'property_helpers/icons_helper.dart';
-import 'property_helpers/colors_helper.dart';
 import 'property_helpers/alignment_helper.dart';
-
-import 'package:flutter_app_builder/components/selecting_text_editing_controller.dart';
+import 'property_helpers/colors_helper.dart';
+import 'property_helpers/icons_helper.dart';
 
 /// Types of properties of a widget
 enum PropertyType {
@@ -18,6 +17,7 @@ enum PropertyType {
   string,
   mainAxisAlignment,
   crossAxisAlignment,
+  //TODO: add widgets type, to allow list of widgets parsing
   widget,
   color,
   alignment,
