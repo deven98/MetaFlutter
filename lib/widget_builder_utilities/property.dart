@@ -17,8 +17,8 @@ enum PropertyType {
   string,
   mainAxisAlignment,
   crossAxisAlignment,
-  //TODO: add widgets type, to allow list of widgets parsing
   widget,
+  widgets,
   color,
   alignment,
   boxFit,

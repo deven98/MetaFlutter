@@ -7,6 +7,7 @@ import 'package:flutter_app_builder/widget_builder_utilities/property_helpers/ic
 import 'package:flutter_app_builder/widget_builder_utilities/property_helpers/scroll_physics_helper.dart';
 import 'package:strings/strings.dart';
 
+import 'color_utils.dart';
 /// Converts parameters to string values for converting to code
 String paramToCode(
     {String paramName,
@@ -49,8 +50,12 @@ String paramToCode(
       result = result + currentValue.toString();
       break;
     case PropertyType.widget:
-      // TODO: Widget as a parameter is not supported in the app yet
       result = result + currentValue.toCode();
+      break;
+    case PropertyType.widgets:
+      result = result +
+          "<Widget>[${currentValue.values.map((w) => w.toCode()).toList().join(
+              ",\n")}]";
       break;
     case PropertyType.color:
       result = result + getName(currentValue);
@@ -79,14 +84,17 @@ String paramToCode(
 }
 
 List<String> splitCommasNotInsideBrackets(String src) {
-  int count = 0;
+  int count = 0,
+      squaresCount = 0;
   List<String> split = [];
   StringBuffer buf = StringBuffer();
   int closing = ")".codeUnitAt(0);
   int opening = "(".codeUnitAt(0);
+  int squareClosing = "]".codeUnitAt(0);
+  int squareOpening = "[".codeUnitAt(0);
   int comma = ",".codeUnitAt(0);
   for (int current in src.codeUnits) {
-    if (current == comma && count == 0) {
+    if (current == comma && count == 0 && squaresCount == 0) {
       split.add(buf.toString());
       buf.clear();
     } else {
@@ -94,6 +102,10 @@ List<String> splitCommasNotInsideBrackets(String src) {
         count++;
       } else if (current == closing) {
         count--;
+      } else if (current == squareOpening) {
+        squaresCount++;
+      } else if (current == squareClosing) {
+        squaresCount--;
       }
       buf.writeCharCode(current);
     }
@@ -118,7 +130,9 @@ List<String> parseCode({String code}) {
   code = code.substring(0, code.length - 1);
   List<String> params = splitCommasNotInsideBrackets(code);
   //if there was a redundant comma, remove the last element
-  if (params.last.isEmpty) {
+  print("params are: [${params.join(", \n")}]");
+
+  if (params.length > 0 && params.last.isEmpty) {
     params.removeLast();
   }
   return params;
@@ -240,9 +254,21 @@ E toModel<E extends ModelWidget>(String code) {
         case PropertyType.widget:
           model.children[model.children.keys.length] = toModel(params[key]);
           break;
+        case PropertyType.widgets:
+        //params[children] = <Widget>[...]
+          String s = params[key];
+          s = s.trim();
+          if (s.startsWith("<Widget>")) s = s.substring(8);
+          if ((s.startsWith("[") && s.endsWith("]"))) {
+            s = s.substring(1, s.length - 1);
+            List<String> widgets = splitCommasNotInsideBrackets(s);
+            widgets.forEach((widget) {
+              model.children[model.children.keys.length] = toModel(widget);
+            });
+          }
+          break;
         case PropertyType.color:
-        //TODO: figure out colors
-          model.params[key] = Colors.black;
+          model.params[key] = parseColor(params[key]);
           break;
         case PropertyType.alignment:
           model.params[key] = alignments

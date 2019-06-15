@@ -42,23 +42,28 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
     //change test to true and hot restart to see code parse in action!
     bool test = false;
     if (test && root == null) {
-      root = toModel("""Container(
-    decoration: BoxDecoration(
-      color: Colors.purple,
-    ),
-    child: Center(
-      widthFactor: 100.0,
-      heightFactor: 100.0,
-      child: Text(
-        "Hi There!",
-        style: TextStyle(
-          fontSize: 24.0,
-          color: Colors.black,
-          fontStyle: FontStyle.normal,
+      root = toModel("""
+      Container(
+        decoration: BoxDecoration(
+          color: Colors.purple,
         ),
-      ),
-    ),
-  )""");
+        child: Center(
+          widthFactor: 100.0,
+          heightFactor: 100.0,
+          child: ListView(children: <Widget>[FlutterLogo(), Text(
+            "Hi There!",
+            style: TextStyle(
+              fontSize: 24.0,
+              color: Colors.black,
+              fontStyle: FontStyle.normal,
+            ),
+          )
+          ]),
+        ),
+      )
+      """);
+
+
       currNode = root;
     }
   }
@@ -69,109 +74,110 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
       key: _scaffoldKey,
       floatingActionButton: root != null
           ? UnicornDialer(
-              backgroundColor: Color.fromRGBO(255, 255, 255, 0.6),
-              parentButtonBackground: Colors.blue,
-              orientation: UnicornOrientation.VERTICAL,
-              parentButton: Icon(Icons.done),
-              childButtons: [
-                UnicornButton(
-                  currentButton: FloatingActionButton(
-                    heroTag: "code",
-                    child: Icon(Icons.code),
-                    mini: true,
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CodeScreen(root)));
-                    },
-                  ),
-                  labelText: "Code",
-                  hasLabel: true,
-                ),
-                UnicornButton(
-                  currentButton: FloatingActionButton(
-                    heroTag: "build",
-                    mini: true,
-                    child: Icon(Icons.build),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ResultScreen(root.toWidget())));
-                    },
-                  ),
-                  labelText: "Build",
-                  hasLabel: true,
-                ),
-              ],
-            )
+        backgroundColor: Color.fromRGBO(255, 255, 255, 0.6),
+        parentButtonBackground: Colors.blue,
+        orientation: UnicornOrientation.VERTICAL,
+        parentButton: Icon(Icons.done),
+        childButtons: [
+          UnicornButton(
+            currentButton: FloatingActionButton(
+              heroTag: "code",
+              child: Icon(Icons.code),
+              mini: true,
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CodeScreen(root)));
+              },
+            ),
+            labelText: "Code",
+            hasLabel: true,
+          ),
+          UnicornButton(
+            currentButton: FloatingActionButton(
+              heroTag: "build",
+              mini: true,
+              child: Icon(Icons.build),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ResultScreen(root.toWidget())));
+              },
+            ),
+            labelText: "Build",
+            hasLabel: true,
+          ),
+        ],
+      )
           : null,
       body: currNode == null
           ? _buildAddWidgetPage()
           : CustomScrollView(
-              slivers: <Widget>[
-                SliverAppBar(
-                  title: Text("Build It!"),
-                  leading: IconButton(
-                    icon: Icon(Icons.clear),
-                    onPressed: _triggerExitPageDialog,
-                  ),
-                  floating: true,
-                  actions: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.device_hub),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TreeScreen(
-                                  rootWidget: root,
-                                ),
-                          ),
-                        );
-                      },
-                      padding: EdgeInsets.all(8.0),
-                    ),
-                    if (currNode != root)
-                      IconButton(
-                        icon: Icon(Icons.arrow_upward),
-                        onPressed: () {
-                          setState(
-                            () {
-                              if (currNode.parent != null) {
-                                currNode = currNode.parent;
-                              } else {
-                                _scaffoldKey.currentState.showSnackBar(
-                                  SnackBar(
-                                    content:
-                                        Text("Already at the top-most widget!"),
-                                  ),
-                                );
-                              }
-                            },
-                          );
-                        },
-                        padding: EdgeInsets.all(8.0),
-                      ),
-                    if (currNode == root)
-                      IconButton(
-                        icon: Icon(Icons.delete),
-                        color: Colors.red,
-                        onPressed: _triggerDeleteLayoutDialog,
-                      ),
-                  ],
-                ),
-                _buildInfo(),
-                currNode.hasChildren ? _buildChildren() : SliverFillRemaining(),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 80.0,
-                  ),
-                ),
-              ],
+        slivers: <Widget>[
+          SliverAppBar(
+            title: Text("Build It!"),
+            leading: IconButton(
+              icon: Icon(Icons.clear),
+              onPressed: _triggerExitPageDialog,
             ),
+            floating: true,
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.device_hub),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          TreeScreen(
+                            rootWidget: root,
+                          ),
+                    ),
+                  );
+                },
+                padding: EdgeInsets.all(8.0),
+              ),
+              if (currNode != root)
+                IconButton(
+                  icon: Icon(Icons.arrow_upward),
+                  onPressed: () {
+                    setState(
+                          () {
+                        if (currNode.parent != null) {
+                          currNode = currNode.parent;
+                        } else {
+                          _scaffoldKey.currentState.showSnackBar(
+                            SnackBar(
+                              content:
+                              Text("Already at the top-most widget!"),
+                            ),
+                          );
+                        }
+                      },
+                    );
+                  },
+                  padding: EdgeInsets.all(8.0),
+                ),
+              if (currNode == root)
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  color: Colors.red,
+                  onPressed: _triggerDeleteLayoutDialog,
+                ),
+            ],
+          ),
+          _buildInfo(),
+          currNode.hasChildren ? _buildChildren() : SliverFillRemaining(),
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 80.0,
+            ),
+          ),
+        ],
+      ),
       resizeToAvoidBottomInset: true,
     );
   }
@@ -214,10 +220,10 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
                   onPressed: () async {
                     ModelWidget newWidget = await Navigator.of(context)
                         .push(new MaterialPageRoute<ModelWidget>(
-                            builder: (BuildContext context) {
-                              return new SelectWidgetDialog();
-                            },
-                            fullscreenDialog: true));
+                        builder: (BuildContext context) {
+                          return new SelectWidgetDialog();
+                        },
+                        fullscreenDialog: true));
                     setState(() {
                       if (root == null) {
                         root = newWidget;
@@ -264,7 +270,7 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
                       horizontal: 16.0, vertical: 4.0),
                   child: currNode.parent != null
                       ? Text("Parent: " +
-                          currNode.parent.widgetType.toString().split(".")[1])
+                      currNode.parent.widgetType.toString().split(".")[1])
                       : Container(),
                 ),
                 ExpansionTile(
@@ -297,28 +303,28 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
           ),
           currNode.hasChildren
               ? ListTile(
-                  title: Text(
-                    "Children",
-                    textAlign: TextAlign.center,
-                  ),
-                  trailing: Icon(Icons.add),
-                  onTap: () async {
-                    ModelWidget widget = await Navigator.of(context)
-                        .push(new MaterialPageRoute<ModelWidget>(
-                            builder: (BuildContext context) {
-                              return new SelectWidgetDialog();
-                            },
-                            fullscreenDialog: true));
-                    setState(
-                      () {
-                        if (widget != null) {
-                          widget.parent = currNode;
-                          currNode.addChild(widget);
-                        }
-                      },
-                    );
+            title: Text(
+              "Children",
+              textAlign: TextAlign.center,
+            ),
+            trailing: Icon(Icons.add),
+            onTap: () async {
+              ModelWidget widget = await Navigator.of(context)
+                  .push(new MaterialPageRoute<ModelWidget>(
+                  builder: (BuildContext context) {
+                    return new SelectWidgetDialog();
                   },
-                )
+                  fullscreenDialog: true));
+              setState(
+                    () {
+                  if (widget != null) {
+                    widget.parent = currNode;
+                    currNode.addChild(widget);
+                  }
+                },
+              );
+            },
+          )
               : Container(),
         ],
       ),
@@ -345,7 +351,7 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
                         .split(".")[1],
                     style: TextStyle(
                       color:
-                          getColorPair(currNode.children[position]).textColor,
+                      getColorPair(currNode.children[position]).textColor,
                     ),
                   ),
                 ),
@@ -398,10 +404,10 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
               flex: 5,
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
+                const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
                 child: Property(
                   widget.paramNameAndTypes[entry.key],
-                  (value) {
+                      (value) {
                     setState(() {
                       widget.params[entry.key] = value;
                     });
