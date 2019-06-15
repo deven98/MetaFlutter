@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_builder/pages/result_screen.dart';
 import 'package:flutter_app_builder/pages/select_widget_dialog.dart';
 import 'package:flutter_app_builder/pages/tree_screen.dart';
-import 'package:flutter_app_builder/utils/code_utils.dart';
 import 'package:flutter_app_builder/utils/color_utils.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/model_widget.dart';
 import 'package:flutter_app_builder/widget_builder_utilities/property.dart';
@@ -40,7 +39,7 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
     root = widget.root;
     currNode = widget.currNode;
     //change test to true and hot restart to see code parse in action!
-    bool test = false;
+    /*bool test = false;
     if (test && root == null) {
       root = toModel("""
       Container(
@@ -62,10 +61,8 @@ class _WidgetStructureScreenState extends State<WidgetStructureScreen> {
         ),
       )
       """);
-
-
       currNode = root;
-    }
+    }*/
   }
 
   @override
