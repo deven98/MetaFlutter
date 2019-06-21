@@ -80,42 +80,53 @@ const Map<String, MaterialAccentColor> accents = {
 // ignore: missing_return
 Color parseColor(String color) {
   if (color.contains("Color(")) {
-    //Color(int value)
+    //using the Color(int value)
+    //color = "Color(some number representing a color)"
     String c = color
         .split("(")
         .last
         .split(")")
         .first;
-    if (c.startsWith("\"") && c.endsWith("\"")) {
-      c = c.substring(1, c.length - 1);
-    }
+    //c = "some number representing a color"
     return Color(int.tryParse(c) ?? 0);
   } else if (color.startsWith("Colors.")) {
+    //color = "Colors.someColor[someShade]" or "Colors.someColorAccent[someShade]"
     color = color.substring(7);
+    //color = "someColor[someShade]" or "someColorAccent[someShade]"
     String name;
-
     ///using var instead of a type to allow both MaterialColor and MaterialAccentColor
+    ///This is the color we will return
     var chosenColor;
     if (color.contains("Accent")) {
+      //color = "someColorAccent[someShade]";
       name = color.substring(0, color.indexOf("Accent") + 6);
+      //name = "someColorAccent"
       if (!accents.containsKey(name)) {
         print("no color found: \"$name\"");
         return Colors.black;
       }
       chosenColor = accents[name];
     } else {
+      //if there is a shade, the name is before the shade. otherwise, the whole string is the
+      //color name.
       int i = color.indexOf("[");
       if (i != -1) {
         name = color.substring(0, i);
       }
       chosenColor = primaries[name];
     }
-    //if the color has a shade, find it
+    //if the color has a shade, find it and set it
+    //suppose it does have a shade:
+    //color = "someColor[someShade]"
     RegExp exp = RegExp("\\[\\d+\\]");
     List<Match> matches = exp.allMatches(color).toList();
+
+    //no shade found
     if (matches.length == 0) return chosenColor;
     Match m = matches.first;
+    //m = "[someShade]"
     int num = int.tryParse(color.substring(m.start + 1, m.end - 1));
+    //num = int.tryParse("someShade")
     return num == null ? chosenColor : chosenColor[num];
   }
 }

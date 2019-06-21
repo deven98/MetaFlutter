@@ -8,6 +8,7 @@ import 'package:flutter_app_builder/widget_builder_utilities/property_helpers/sc
 import 'package:strings/strings.dart';
 
 import 'color_utils.dart';
+
 /// Converts parameters to string values for converting to code
 String paramToCode(
     {String paramName,
@@ -83,10 +84,18 @@ String paramToCode(
   return "    " + result + ",\n";
 }
 
+///used to split a string by commas that are not inside brackets. for Example:
+///"Text(\"Hi\", textStyle: TextStyle(color: Colors.black)), FlutterLogo()"
+///Will be split into two strings:
+///"Text(\"Hi\", textStyle: TextStyle(color: Colors.black))", "FlutterLogo()"
+///This is used to parse a code of a widget model into a list of params.
 List<String> splitCommasNotInsideBrackets(String src) {
   int count = 0,
       squaresCount = 0;
   List<String> split = [];
+  //In order to do things more efficient,
+  //we'll be comparing integers instead of strings,
+  //and using a string buffer instead of strings concatenation.
   StringBuffer buf = StringBuffer();
   int closing = ")".codeUnitAt(0);
   int opening = "(".codeUnitAt(0);
@@ -110,6 +119,8 @@ List<String> splitCommasNotInsideBrackets(String src) {
       buf.writeCharCode(current);
     }
   }
+  //the string is probably not terminated with a comma, so we will want to
+  //add whatever's left inside the buffer.
   if (buf.isNotEmpty) {
     split.add(buf.toString());
   }
@@ -208,8 +219,7 @@ E toModel<E extends ModelWidget>(String code) {
   for (int i = 0; i < WidgetType.values.length && !found; i++)
     type = WidgetType.values.firstWhere((t) => "$t".contains(widgetName));
   model = getNewModelFromType(type);
-  params = parseNamedParams(
-      params: list, unnamedParams: unnamedParams(type));
+  params = parseNamedParams(params: list, unnamedParams: unnamedParams(type));
   model.paramNameAndTypes.forEach((k, t) {
     String key = k;
     PropertyType type = t;
@@ -255,17 +265,20 @@ E toModel<E extends ModelWidget>(String code) {
           model.children[model.children.keys.length] = toModel(params[key]);
           break;
         case PropertyType.widgets:
-        //params[children] = <Widget>[...]
+        //params[children] = "<Widget>[widget1, widget2, widget3,...]"
           String s = params[key];
           s = s.trim();
           if (s.startsWith("<Widget>")) s = s.substring(8);
+          //params[children] = "[widget1, widget2, widget3,...]"
           if ((s.startsWith("[") && s.endsWith("]"))) {
+            //params[children] = "widget1, widget2, widget3,..." (this is what we want to parse!)
             s = s.substring(1, s.length - 1);
             List<String> widgets = splitCommasNotInsideBrackets(s);
+            //widgets = [widget1, widget2, widget3, ...]
             widgets.forEach((widget) {
               model.children[model.children.keys.length] = toModel(widget);
             });
-          }
+          } // else it is not a valid list (it might be an expression but we don't support these right now.
           break;
         case PropertyType.color:
           model.params[key] = parseColor(params[key]);
@@ -298,6 +311,5 @@ E toModel<E extends ModelWidget>(String code) {
       }
     }
   });
-
   return model;
 }
