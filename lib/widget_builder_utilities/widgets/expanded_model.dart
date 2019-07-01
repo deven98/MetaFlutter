@@ -13,6 +13,7 @@ class ExpandedModel extends ModelWidget {
     this.hasChildren = true;
     this.paramNameAndTypes = {
       "flex": PropertyType.integer,
+      "child": PropertyType.widget
     };
     this.params = {
       "flex": "1",

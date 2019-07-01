@@ -14,6 +14,7 @@ class ListViewModel extends ModelWidget {
     this.paramNameAndTypes = {
       "physics": PropertyType.scrollPhysics,
       "shrinkWrap": PropertyType.boolean,
+      "children": PropertyType.widgets
     };
     this.params = {
       "shrinkWrap": false,
@@ -46,9 +47,9 @@ class ListViewModel extends ModelWidget {
     return "ListView(\n"
         "${paramToCode(paramName: "shrinkWrap", currentValue: params["shrinkWrap"], type: PropertyType.boolean)}"
         "${paramToCode(paramName: "physics", type: PropertyType.scrollPhysics, currentValue: params["physics"])}"
-        '''    children: ${children.isNotEmpty ? children.values.map((widget) {
-            return widget.toCode();
-          }).toList() : []},'''
+        "${paramToCode(paramName: "children",
+        type: PropertyType.widgets,
+        currentValue: children)}"
         "\n  )";
   }
 }

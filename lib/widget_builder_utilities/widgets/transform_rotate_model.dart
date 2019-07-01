@@ -14,6 +14,7 @@ class TransformRotateModel extends ModelWidget {
       "angle": PropertyType.double,
       "originX": PropertyType.double,
       "originY": PropertyType.double,
+      "child": PropertyType.widget
     };
     this.params = {
       "angle": "0.0",

@@ -13,6 +13,7 @@ class FlatButtonModel extends ModelWidget {
     this.hasChildren = true;
     this.paramNameAndTypes = {
       "color": PropertyType.color,
+      "child": PropertyType.widget
     };
   }
 

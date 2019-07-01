@@ -13,7 +13,8 @@ class RowModel extends ModelWidget {
     this.hasChildren = true;
     this.paramNameAndTypes = {
       "mainAxisAlignment": PropertyType.mainAxisAlignment,
-      "crossAxisAlignment": PropertyType.crossAxisAlignment
+      "crossAxisAlignment": PropertyType.crossAxisAlignment,
+      "children": PropertyType.widgets
     };
     this.params = {
       "mainAxisAlignment": MainAxisAlignment.start,
@@ -51,9 +52,9 @@ class RowModel extends ModelWidget {
     return "Row(\n"
         "${paramToCode(paramName: "mainAxisAlignment", type: PropertyType.mainAxisAlignment, currentValue: params["mainAxisAlignment"])}"
         "${paramToCode(paramName: "crossAxisAlignment", type: PropertyType.mainAxisAlignment, currentValue: params["crossAxisAlignment"])}"
-        '''    children: ${children.isNotEmpty ? children.values.map((widget) {
-            return widget.toCode();
-          }).toList() : []},'''
+        "${paramToCode(paramName: "children",
+        type: PropertyType.widgets,
+        currentValue: children)},"
         "\n  )";
   }
 }

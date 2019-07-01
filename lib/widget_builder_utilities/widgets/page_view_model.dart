@@ -14,6 +14,7 @@ class PageViewModel extends ModelWidget {
     this.paramNameAndTypes = {
       "physics": PropertyType.scrollPhysics,
       "scrollDirection": PropertyType.axis,
+      "children": PropertyType.widgets
     };
     this.params = {
       "scrollDirection": Axis.horizontal,
@@ -46,9 +47,9 @@ class PageViewModel extends ModelWidget {
     return "PageView(\n"
         "${paramToCode(paramName: "physics", type: PropertyType.scrollPhysics, currentValue: params["physics"])}"
         "${paramToCode(paramName: "scrollDirection", type: PropertyType.axis, currentValue: params["scrollDirection"])}"
-        '''    children: ${children.isNotEmpty ? children.values.map((widget) {
-            return widget.toCode();
-          }).toList() : []},'''
+        '''    ${paramToCode(paramName: "children",
+        type: PropertyType.widgets,
+        currentValue: children)},'''
         "\n  )";
   }
 }

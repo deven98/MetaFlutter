@@ -14,6 +14,7 @@ class TransformScaleModel extends ModelWidget {
       "scale": PropertyType.double,
       "originX": PropertyType.double,
       "originY": PropertyType.double,
+      "child": PropertyType.widget
     };
     this.params = {
       "scale": "0.0",

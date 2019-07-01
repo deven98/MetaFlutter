@@ -15,6 +15,7 @@ class GridViewModel extends ModelWidget {
       "physics": PropertyType.scrollPhysics,
       "shrinkWrap": PropertyType.boolean,
       "crossAxisCount": PropertyType.integer,
+      "children": PropertyType.widgets
     };
     this.params = {
       "shrinkWrap": false,
@@ -52,9 +53,9 @@ class GridViewModel extends ModelWidget {
         "${paramToCode(paramName: "physics", type: PropertyType.scrollPhysics, currentValue: params["physics"])}"
         '''gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: ${params["crossAxisCount"] ?? 2}),
-          children: ${children.isNotEmpty ? children.values.map((widget) {
-            return widget.toCode();
-          }).toList() : []},'''
+          ${paramToCode(paramName: "children",
+        currentValue: children,
+        type: PropertyType.widgets)},'''
         "\n  )";
   }
 }

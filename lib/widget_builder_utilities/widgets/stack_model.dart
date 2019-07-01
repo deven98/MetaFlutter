@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_builder/utils/code_utils.dart';
+import 'package:flutter_app_builder/widget_builder_utilities/property.dart';
 
 import '../model_widget.dart';
-import '../property.dart';
 
 /// Provides a model for recreating the [Stack] widget
 class StackModel extends ModelWidget {
@@ -10,6 +11,9 @@ class StackModel extends ModelWidget {
     this.nodeType = NodeType.MultipleChildren;
     this.hasProperties = false;
     this.hasChildren = true;
+    this.paramNameAndTypes = {
+      "children": PropertyType.widgets
+    };
   }
 
   @override
@@ -33,11 +37,9 @@ class StackModel extends ModelWidget {
   @override
   String toCode() {
     return '''Stack(
-      children: ${children.isNotEmpty ? children.values.map(
-            (widget) {
-              return widget.toCode();
-            },
-          ).toList() : []},
+      ${paramToCode(paramName: "children",
+        type: PropertyType.widgets,
+        currentValue: children)},
     )''';
   }
 }
